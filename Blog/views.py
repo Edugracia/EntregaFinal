@@ -26,7 +26,7 @@ class PaginaUpdate(UpdateView):
     model = Pagina
     success_url = reverse_lazy('estudiante_listar')
     fields=['nombre', 'apellido', 'email']
-
+#ARREGLAR ESTE DRAMA
 class PaginaDelete(DeleteView):
     model = Pagina
     success_url = reverse_lazy('pagina_lista')
