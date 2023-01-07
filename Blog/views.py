@@ -24,12 +24,14 @@ class PaginaCreacion(CreateView):
 
 class PaginaUpdate(UpdateView):
     model = Pagina
-    success_url = reverse_lazy('estudiante_listar')
-    fields=['nombre', 'apellido', 'email']
-#ARREGLAR ESTE DRAMA
+    success_url = reverse_lazy('pagina_lista')
+    fields=['titulo', 'subtitulo', 'autor', 'cuerpo', 'fecha_posteo', 'imagen']
+    template_name="pagina_form.html"
+
 class PaginaDelete(DeleteView):
     model = Pagina
     success_url = reverse_lazy('pagina_lista')
+    template_name="pagina_confirm_delete.html"
 
 class PaginaList(ListView):
     model=Pagina

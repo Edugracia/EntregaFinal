@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Post</title>
-</head>
-<body>
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block titulo %} 
+<title>Lista de post</title>
+
+{% endblock %}
+
+{% block content %}
+
+
     <form method="post">{% csrf_token %}
         Estas seguro que desea eliminar el post "{{ object }}"?
-        <input type="submit" value="SI">
+        <input class="btn btn-danger" type="submit" value="SI">
     
     </form>
-</body>
-</html>
+
+{% endblock %}
+
+<a class="btn btn-danger" href="{% url 'pagina_borrar' pagina.id %}">Borrar</a>
