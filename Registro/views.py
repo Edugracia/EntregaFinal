@@ -5,6 +5,11 @@ from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 
+
+def inicio(request):
+    return render (request, "inicio.html")
+
+
 def registro(request):
     if request.method=="POST":
         form=registrousuarioform(request.POST)

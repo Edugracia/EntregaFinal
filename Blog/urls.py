@@ -1,10 +1,11 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
 
 
 
 urlpatterns = [
-    path('', inicio, name="inicio"),
+
+    path('', include ("Registro.urls")),
     
 
 
@@ -16,3 +17,5 @@ urlpatterns = [
     
 
 ]
+
+"""path('', inicio, name="inicio"),"""
