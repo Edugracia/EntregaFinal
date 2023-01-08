@@ -7,18 +7,34 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    {% block titulo %} 
+{% block titulo %} 
 
-    {% endblock %}
-    <title>Hello, world!</title>
+{% endblock %}
+    <title>Blogcoder</title>
   </head>
   <body>
-    
-    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'pagina_lista' %}">Blogcoder</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                
+                <a class="nav-link" href="{% url 'pagina_crear'%}">Publicar</a>
+                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link disabled">Disabled</a>
+        </div>
+        
+        
+    </nav>
+<br/>
+<div class="container-fluid">
         {% block content %}
 
         {% endblock %}
-    </div>
+</div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

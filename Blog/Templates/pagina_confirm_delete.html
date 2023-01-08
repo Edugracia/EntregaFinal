@@ -3,16 +3,20 @@
 {% load static %}
 
 {% block titulo %} 
-<title>Lista de post</title>
+<title>Eliminar Post</title>
 
 {% endblock %}
 
 {% block content %}
 
+<h1>Eliminar: {{ object }}</h1>
 
+<br/>
     <form method="post">{% csrf_token %}
-        Estas seguro que desea eliminar el post "{{ object }}"?
-        <input class="btn btn-danger" type="submit" value="SI">
+        <strong>¿Esta seguro que desea eliminar el post?</strong>
+        <br/>
+        <br/>
+        <button class="btn btn-danger">Eliminar</a>
     
     </form>
 

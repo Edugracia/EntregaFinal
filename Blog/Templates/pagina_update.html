@@ -2,19 +2,18 @@
 
 
 {% block titulo %} 
-<title>Nuevo Post</title>
+<title>Editar Post</title>
 {% endblock %}
 
 {% block content %}
 
-<h1>Nuevo post</h1>
+<h1>Actualizar post</h1>
+
 <table>
-
-
     <form method="post">{% csrf_token %}
         {{form.as_table}}
 </table>
-        <button class="btn btn-secondary">Publicar</a>
+        <button class="btn btn-secondary">Actualizar</a>
     </form>
 
 {% endblock %}

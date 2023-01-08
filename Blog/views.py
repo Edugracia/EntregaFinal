@@ -25,8 +25,8 @@ class PaginaCreacion(CreateView):
 class PaginaUpdate(UpdateView):
     model = Pagina
     success_url = reverse_lazy('pagina_lista')
-    fields=['titulo', 'subtitulo', 'autor', 'cuerpo', 'fecha_posteo', 'imagen']
-    template_name="pagina_form.html"
+    fields=['titulo', 'subtitulo', 'cuerpo', 'fecha_posteo', 'imagen']
+    template_name="pagina_update.html"
 
 class PaginaDelete(DeleteView):
     model = Pagina
@@ -36,6 +36,7 @@ class PaginaDelete(DeleteView):
 class PaginaList(ListView):
     model=Pagina
     template_name="listapaginas.html"
+    ordering= ["-id"]
 
 class PaginaDetalle(DetailView):
     model=Pagina
