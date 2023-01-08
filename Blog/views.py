@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -16,19 +17,19 @@ def blogs(request):
 
 #Vistas de paginas
 
-class PaginaCreacion(CreateView):
+class PaginaCreacion(LoginRequiredMixin,CreateView):
     model = Pagina
     template_name="pagina_form.html"
     success_url = reverse_lazy('pagina_lista')
     fields=['titulo', 'subtitulo', 'autor', 'cuerpo', 'imagen']
 
-class PaginaUpdate(UpdateView):
+class PaginaUpdate(LoginRequiredMixin,UpdateView):
     model = Pagina
     success_url = reverse_lazy('pagina_lista')
     fields=['titulo', 'subtitulo', 'cuerpo', 'imagen']
     template_name="pagina_update.html"
 
-class PaginaDelete(DeleteView):
+class PaginaDelete(LoginRequiredMixin,DeleteView):
     model = Pagina
     success_url = reverse_lazy('pagina_lista')
     template_name="pagina_confirm_delete.html"

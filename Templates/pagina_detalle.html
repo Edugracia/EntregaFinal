@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block content %}
-<h1>Posteos</h1>
+
+
+<h1>Posteos {{pagina.autor.id}}</h1>
 
 <small>
     <p>{{pagina.titulo}}</p>
@@ -18,6 +20,15 @@
 </small>
 
     <a class="btn btn-secondary" href="{% url 'pagina_lista' %}">Volver</a>
+
+{% if user.is_authenticated %}
+    {% if user.id == pagina.autor.id %}
+        <a class="btn btn-success" href="{% url 'pagina_editar' pagina.id %}">Editar</a>
+        <a class="btn btn-danger" href="{% url 'pagina_borrar' pagina.id %}">Borrar</a>
+    {% endif %}
+{% endif %}
+
+
 
 
 {% endblock %}

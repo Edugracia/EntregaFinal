@@ -36,12 +36,12 @@ def login_request(request):
                 login(request, usuario)
                 return render(request, "inicio.html", {"mensaje":f"Usuario {usu} logueado correctamente"})
             else:
-                return render(request, "login.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
+                return render(request, "ingresar.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
         else:
-            return render(request, "login.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
+            return render(request, "ingresar.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
     else:
         form=AuthenticationForm()
-        return render(request, "login.html", {"form":form})
+        return render(request, "ingresar.html", {"form":form})
 
 
 def editarperfil(request):

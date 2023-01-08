@@ -17,8 +17,12 @@
 <h5>{{ pagina.titulo }} - {{ pagina.autor }} - {{ pagina.fecha_posteo }}</h5>
 
 <a class="btn btn-secondary" href="{% url 'pagina_detalle' pagina.id %}">Leer mas</a>
-<a class="btn btn-success" href="{% url 'pagina_editar' pagina.id %}">Editar</a>
-<a class="btn btn-danger" href="{% url 'pagina_borrar' pagina.id %}">Borrar</a>
+    {% if user.is_authenticated %}
+        {% if user.id == pagina.autor.id %}
+            <a class="btn btn-success" href="{% url 'pagina_editar' pagina.id %}">Editar</a>
+            <a class="btn btn-danger" href="{% url 'pagina_borrar' pagina.id %}">Borrar</a>
+        {% endif %}
+    {% endif %}
 
 {% endfor %}
 <br>

@@ -3,9 +3,10 @@
 {% load static %}
 
 {% block titulo %} 
-<title>Lista de post</title>
+<title>Inicio</title>
 
 {% endblock %}
+
 
 {% block content %}
         
@@ -32,6 +33,8 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
                         <div class="text-center text-white">
+                            <h1 class="mb-5">Bienvenido a BlogCoder</h1>
+                            <h3 class="mb-5">{{mensaje}}</h3>
                             <!-- Page heading-->
 
                             <!-- Signup form-->
@@ -49,10 +52,8 @@
             </div>
         </header>
             
-        {% block contenido_que_cambia %}
 
-        {% endblock %}
-        <!-- Icons Grid-->
+
 
         <!-- Image Showcases-->
         <section class="showcase">

@@ -7,14 +7,30 @@
 
 {% block content %}
 
-<h1>Actualizar post</h1>
+{% if user.is_authenticated %}
+    {% if user.id == pagina.autor.id %}
 
-<table>
-    <form method="post">{% csrf_token %}
-        {{form.as_table}}
-</table>
-        <button class="btn btn-secondary">Actualizar</a>
-    </form>
+    <h1>Actualizar post</h1>
+    <br/>
+
+    <table>
+        <form method="post">{% csrf_token %}
+            {{form.as_table}}
+    </table>
+    <br/>
+            <button class="btn btn-secondary">Actualizar</a>
+        </form>
+
+    {% else %}
+            <h1>No cuenta con los permisos necesarios.</h1>
+            <br/>
+
+            <a class="btn btn-secondary" href="{% url 'login'%}">Ingresar</a>
+            <a class="btn btn-secondary" href="{% url 'registro'%}">Registrarse</a>
+
+    {% endif %}
+{% endif %}
+
 
 {% endblock %}
 

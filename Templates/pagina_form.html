@@ -8,12 +8,15 @@
 {% block content %}
 
 <h1>Nuevo post</h1>
+<br/>
+
 <table>
 
 
     <form method="post">{% csrf_token %}
         {{form.as_table}}
 </table>
+<br/>
         <button class="btn btn-secondary">Publicar</a>
     </form>
 
