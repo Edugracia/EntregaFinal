@@ -5,7 +5,7 @@ from .views import *
 
 urlpatterns = [
 
-    path('', include ("Registro.urls")),
+
     
 
 
