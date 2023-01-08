@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
+from datetime import datetime, date
 
 # Create your models here.
 class Pagina(models.Model):
@@ -8,7 +8,7 @@ class Pagina(models.Model):
     subtitulo=models.CharField(max_length=100)
     autor= models.ForeignKey(User, on_delete=models.CASCADE)
     cuerpo=models.TextField()
-    fecha_posteo=models.DateField(default=date.today)
+    fecha_posteo=models.DateField(auto_now_add=True)
     imagen=models.ImageField(upload_to="post", null=True, blank=True)
 
     def __str__(self):

@@ -1,0 +1,25 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block titulo %} 
+<title>Eliminar Post</title>
+
+{% endblock %}
+
+{% block content %}
+
+<h1>Eliminar: {{ object }}</h1>
+
+<br/>
+    <form method="post">{% csrf_token %}
+        <strong>¿Esta seguro que desea eliminar el post?</strong>
+        <br/>
+        <br/>
+        <button class="btn btn-danger">Eliminar</a>
+    
+    </form>
+
+{% endblock %}
+
+<a class="btn btn-danger" href="{% url 'pagina_borrar' pagina.id %}">Borrar</a>
