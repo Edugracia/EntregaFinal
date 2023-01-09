@@ -17,3 +17,8 @@ class Pagina(models.Model):
     def __str__(self):
         return f"{self.titulo} - {self.autor}"
 
+
+class Imagen(models.Model):
+    imagen=models.ImageField(null=True, blank=True, upload_to="post")
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+

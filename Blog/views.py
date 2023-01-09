@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Pagina
-from Blog.forms import paginaform
+from .models import *
+from Blog.forms import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,15 +19,29 @@ def blogs(request):
 
 class PaginaCreacion(LoginRequiredMixin,CreateView):
     model = Pagina
-    template_name="pagina_form.html"
+    template_name="pagina_form.html", 
     success_url = reverse_lazy('pagina_lista')
     fields=['titulo', 'subtitulo', 'autor', 'cuerpo', 'imagen']
+
+
+
+"""class PaginaCreacion(LoginRequiredMixin,CreateView):
+    model = Pagina
+    template_name="pagina_form.html"
+    success_url = reverse_lazy('pagina_lista')
+    fields=['titulo', 'subtitulo', 'autor', 'cuerpo', 'imagen']"""
 
 class PaginaUpdate(LoginRequiredMixin,UpdateView):
     model = Pagina
     success_url = reverse_lazy('pagina_lista')
     fields=['titulo', 'subtitulo', 'cuerpo', 'imagen']
     template_name="pagina_update.html"
+
+"""class PaginaUpdate(LoginRequiredMixin,UpdateView):
+    model = Pagina
+    success_url = reverse_lazy('pagina_lista')
+    fields=['titulo', 'subtitulo', 'cuerpo', 'imagen']
+    template_name="pagina_update.html"""
 
 class PaginaDelete(LoginRequiredMixin,DeleteView):
     model = Pagina
@@ -42,6 +56,34 @@ class PaginaList(ListView):
 class PaginaDetalle(DetailView):
     model=Pagina
     template_name="pagina_detalle.html"
+
+def obtenerimagen(request):
+    lista=Imagen.objects.filter(user=request.user)
+    if len(lista)!=0:
+        imagen=lista[0].imagen.url
+    else:
+        imagen="/media/post/defaultpost.png"
+    return imagen
+
+def agregarimagen(request):
+    if request.method=="POST":
+        form=Imagenform(request.POST, request.FILES)
+        if form.is_valid():
+            imagen=Imagen(user=request.user, imagen=request.FILES["imagen"])
+            imagenvieja=Imagen.objects.filter(user=request.user)
+            if len(imagenvieja)>0:
+                imagenvieja[0].delete()
+            imagen.save()
+            return render(request, "inicio.html", {"mensaje":f"Avatar agregado correctamente"})
+        else:
+            return render(request, "pagina_form.html", {"form": form, "usuario": request.user, "mensaje":"Error al agregar avatar"})
+
+    else:
+        form=Imagenform()
+        return render(request, "pagina_form.html", {"form":form, "usuario": request.user})
+
+
+
 
 
 

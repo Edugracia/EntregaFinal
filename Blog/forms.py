@@ -6,3 +6,7 @@ class paginaform(forms.Form):
 
     fecha_posteo=forms.DateField()
     imagen=forms.ImageField(label="Imagen")
+
+
+class Imagenform(forms.Form):
+    imagen=forms.ImageField(label="Imagen")

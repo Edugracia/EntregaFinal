@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
-    return render (request, "inicio.html")
+    return render (request, "inicio.html", {"avatar": obteneravatar(request)})
 
 
 def registro(request):
@@ -57,6 +57,7 @@ def editarperfil(request):
             usuario.password2=informacion["password2"]
             usuario.web_site=informacion["web_site"]
             usuario.descripcion=informacion["descripcion"]
+            usuario.avatar=informacion["avatar"]
 
             usuario.save()
             return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente"})
@@ -70,3 +71,27 @@ def editarperfil(request):
 
 
 
+def obteneravatar(request):
+    lista=Avatar.objects.filter(user=request.user)
+    if len(lista)!=0:
+        avatar=lista[0].imagen.url
+    else:
+        avatar="/media/avatars/defaultavatar.jpg"
+    return avatar
+
+def agregaravatar(request):
+    if request.method=="POST":
+        form=Avatarform(request.POST, request.FILES)
+        if form.is_valid():
+            avatar=Avatar(user=request.user, imagen=request.FILES["imagen"])
+            avatarviejo=Avatar.objects.filter(user=request.user)
+            if len(avatarviejo)>0:
+                avatarviejo[0].delete()
+            avatar.save()
+            return render(request, "inicio.html", {"mensaje":f"Avatar agregado correctamente"})
+        else:
+            return render(request, "agregaravatar.html", {"form": form, "usuario": request.user, "mensaje":"Error al agregar avatar"})
+
+    else:
+        form=Avatarform()
+        return render(request, "agregaravatar.html", {"form":form, "usuario": request.user})

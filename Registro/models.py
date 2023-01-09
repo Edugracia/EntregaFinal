@@ -8,12 +8,18 @@ class Profile(models.Model):
     nombre= models.CharField(max_length=50)
     descripcion=models.TextField()
     email=models.EmailField()
-    web_site=models.URLField(max_length=100)
-    instagram= models.CharField(max_length=255, null=True, blank=True)
-    facebook= models.CharField(max_length=255, null=True, blank=True)
+    web_site=models.CharField(max_length=255, null=True, blank=True)
+    #avatar=models.ImageField(null=True, blank=True, upload_to="profile")
 
 
     def __str__(self):
         return str(self.user)
+
+
+class Avatar(models.Model):
+    imagen=models.ImageField(upload_to="avatars")
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 
 

@@ -26,6 +26,7 @@
 
                 {% if user.is_authenticated %}
                 
+                <img src="{{ avatar }}" alt="">
                 <a class="nav-link" href="{% url 'pagina_crear'%}">Publicar</a>
                 <a class="nav-link" href="{% url 'editarperfil'%}">Editar perfil</a>
                 <a class="nav-link" href="{% url 'logout'%}">Salir</a>
