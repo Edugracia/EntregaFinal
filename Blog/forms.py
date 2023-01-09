@@ -1,13 +1,5 @@
 from django import forms
 
-
-
-
-
-
-
-
-
 class paginaform(forms.Form):
     titulo=forms.CharField(max_length=100)
     subtitulo=forms.CharField(max_length=100)

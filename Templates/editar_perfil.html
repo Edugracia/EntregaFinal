@@ -1,0 +1,29 @@
+{% extends "padre.html" %}
+
+
+{% block titulo %} 
+<title>Editar perfil</title>
+{% endblock %}
+
+{% block content %}
+
+<h1>Editar perfil</h1>
+<table>
+
+
+    <h3 class="mb-5">{{mensaje}}</h3>
+
+    <form action="{% url 'editarperfil' %}" method="POST"> {% csrf_token %}
+    
+    
+        <table>
+    
+            {{ form.as_table }}
+        
+        </table>
+    
+        <button class="btn btn-secondary">Editar perfil</a>
+    
+    </form>
+    
+    {% endblock %}

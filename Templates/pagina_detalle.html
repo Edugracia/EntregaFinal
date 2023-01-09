@@ -14,30 +14,26 @@
     <p>{{pagina.titulo}}</p>
     <p>{{pagina.subtitulo}}</p>
     <p>{{pagina.autor}}</p>
-    <p>{{pagina.cuerpo}}</p>
+    {% if pagina.imagen %}
+        <img src="{{pagina.imagen.url}}"><br/><br/>
+    {% endif %}
+    <p>{{pagina.cuerpo|safe}}</p>
     <p>{{pagina.fecha_posteo}}</p>
-    <p>{{pagina.imagen}}</p>
+    
+
 </small>
 
     <a class="btn btn-secondary" href="{% url 'pagina_lista' %}">Volver</a>
 
-{% if user.is_authenticated %}
+
     {% if user.id == pagina.autor.id %}
         <a class="btn btn-success" href="{% url 'pagina_editar' pagina.id %}">Editar</a>
         <a class="btn btn-danger" href="{% url 'pagina_borrar' pagina.id %}">Borrar</a>
+    
     {% endif %}
-{% endif %}
+
 
 
 
 
 {% endblock %}
-
-<small>
-    <p>Titulo : <i>{{pagina.titulo}}</i></p>
-    <p>Subtitulo : <i>{{pagina.subtitulo}}</i></p>
-    <p>Autor : <i>{{pagina.autor}}</i></p>
-    <p>Cuerpo : <i>{{pagina.cuerpo}}</i></p>
-    <p>Fecha : <i>{{pagina.fecha_posteo}}</i></p>
-    <p>Imagen : <i>{{pagina.imagen}}</i></p>
-</small>
