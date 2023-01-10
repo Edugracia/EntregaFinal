@@ -17,6 +17,7 @@ def blogs(request):
 
 #Vistas de paginas
 
+
 class PaginaCreacion(LoginRequiredMixin,CreateView):
     model = Pagina
     template_name="pagina_form.html"

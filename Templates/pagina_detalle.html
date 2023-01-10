@@ -13,15 +13,17 @@
 <small>
     <p>{{pagina.titulo}}</p>
     <p>{{pagina.subtitulo}}</p>
+    <p>{{pagina.fecha_posteo}}</p>
     <p>{{pagina.autor}}</p>
     {% if pagina.imagen %}
         <img src="{{pagina.imagen.url}}"><br/><br/>
     {% endif %}
     <p>{{pagina.cuerpo|safe}}</p>
-    <p>{{pagina.fecha_posteo}}</p>
-    
+
 
 </small>
+
+
 
     <a class="btn btn-secondary" href="{% url 'pagina_lista' %}">Volver</a>
 
@@ -34,6 +36,8 @@
 
 
 
+
+<img src="{{pagina.autor.imagen_perfil.url}}"></p>
 
 
 {% endblock %}

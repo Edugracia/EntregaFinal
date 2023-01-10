@@ -15,6 +15,7 @@ class registrousuarioform(UserCreationForm):
 
 
 class UserEditform(UserCreationForm):
+    imagen_perfil=forms.ImageField
     first_name=forms.CharField(label="Nombre")
     last_name=forms.CharField(label="Apellido")
     email= forms.EmailField(label="Email")
@@ -22,9 +23,6 @@ class UserEditform(UserCreationForm):
     password2= forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput)
     web_site=forms.URLField(max_length=100)
     descripcion = forms.CharField(widget=CKEditorWidget())
-
-
-
 
     class Meta:
         model=User
