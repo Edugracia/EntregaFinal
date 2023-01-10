@@ -18,11 +18,36 @@ def blogs(request):
 #Vistas de paginas
 
 
-class PaginaCreacion(LoginRequiredMixin,CreateView):
+
+def pagina_crear(request):
+    if request.method=="POST":
+        formulario= paginaform(request.POST, request.FILES)
+        if formulario.is_valid():
+            informacion=formulario.cleaned_data
+            titulo= informacion["titulo"]
+            subtitulo= informacion["subtitulo"]
+            #fecha_posteo= informacion["fecha_posteo"]
+            autor= informacion["autor"]
+            imagen= informacion["imagen"]
+            cuerpo= informacion["cuerpo"]
+            pagina= Pagina(titulo=titulo, subtitulo=subtitulo, autor=autor, imagen=imagen, cuero=cuerpo)
+            pagina.save()
+            paginas=Pagina.objects.all()
+            return render(request, "pagina_detalle.html", {"paginas":paginas})
+
+        #else:
+            return render (request, "librosform.html", {"form": formulario, "mensaje": "Informacion no valida"})
+    
+    else:
+        formulario= paginaform()
+        return render (request, "pagina_form.html", {"form": formulario})
+
+
+"""class PaginaCreacion(LoginRequiredMixin,CreateView):
     model = Pagina
     template_name="pagina_form.html"
     success_url = reverse_lazy('pagina_lista')
-    fields=['titulo', 'subtitulo', 'autor', 'cuerpo', 'imagen']
+    fields=['titulo', 'subtitulo', 'autor', 'cuerpo', 'imagen']"""
 
 class PaginaUpdate(LoginRequiredMixin,UpdateView):
     model = Pagina

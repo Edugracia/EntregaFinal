@@ -5,7 +5,7 @@ from .views import *
 
 urlpatterns = [ 
     path('', inicio, name="inicio"),
-    path('pagina/nueva/', PaginaCreacion.as_view(), name="pagina_crear"),
+    path('pagina/nueva/', pagina_crear, name="pagina_crear"),
     path('pagina/editar/<pk>', PaginaUpdate.as_view(), name="pagina_editar"),
     path('pagina/borrar/<pk>', PaginaDelete.as_view(), name="pagina_borrar"),
     path('pagina/list/', PaginaList.as_view(), name="pagina_lista"),
@@ -14,3 +14,4 @@ urlpatterns = [
 ]
 
 """path('', inicio, name="inicio"),"""
+"""path('pagina/nueva/', PaginaCreacion.as_view(), name="pagina_crear"),"""
