@@ -1,11 +1,10 @@
 from django.shortcuts import render
 from .models import Pagina
-from Blog.forms import paginaform
+from Blog.forms import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -14,6 +13,29 @@ def inicio(request):
 
 def blogs(request):
     return render (request, "blogs.html")
+
+@login_required
+def nuevopost(request):
+    if request.method=="POST":
+        formulario=nuevopostform(request.POST)
+        if formulario.is_valid():
+            informacion= formulario.cleaned_data
+            titulo= informacion["titulo"]
+            subtitulo= informacion["subtitulo"]
+            #imagen= informacion["imagen"]
+            cuerpo= informacion["cuerpo"]
+            pag= Pagina(titulo=titulo, subtitulo=subtitulo, cuerpo=cuerpo)
+            pag.save()
+            posteos=Pagina.objects.all()
+            return render(request, "pagina_detalle.html", {"posteos": posteos, "mensaje": "Blog guardado"})
+        else:
+            return render(request, "pagina_form_copia.html", {"mensaje": "Informacion no Valida"})
+    else:
+        formulario=nuevopostform()
+        return render(request, "pagina_form_copia.html", {"formulario": formulario})
+
+
+
 
 #Vistas de paginas
 

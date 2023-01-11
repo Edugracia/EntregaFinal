@@ -1,0 +1,34 @@
+{% extends "padre.html" %}
+
+
+{% block titulo %} 
+<title>Nuevo Post</title>
+{% endblock %}
+
+{% block content %}
+
+
+<h1>Nuevo post</h1>
+
+<br/>
+
+{{ mensaje }}
+
+<br/>
+
+<form action="{% url 'nuevopost' %}" method="POST"> {% csrf_token %}
+
+    <table>
+
+        {{form.media}}
+        {{ form.as_table }}
+
+    </table>
+
+<br/>
+    <button class="btn btn-secondary">Publicar</a>
+        
+</form>
+
+{% endblock %}
+
