@@ -23,11 +23,12 @@ class UserEditform(UserCreationForm):
     web_site=forms.URLField(max_length=100)
     descripcion = forms.CharField(widget=CKEditorWidget())
 
-
-
-
     class Meta:
         model=User
         fields=["first_name", "last_name", "email", "password1", "password2", "web_site", "descripcion"]
         help_texts = {k:"" for k in fields}
+
+
+class Avatarform(forms.Form):
+    imagen=forms.ImageField(label="Imagen")
 

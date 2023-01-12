@@ -17,3 +17,7 @@ class Profile(models.Model):
         return str(self.user)
 
 
+class Avatar(models.Model):
+    imagen=models.ImageField(upload_to="avatars")
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+

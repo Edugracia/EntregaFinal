@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from .models import Pagina
+from Registro.models import *
 from Blog.forms import *
+from Registro.forms import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -24,8 +27,8 @@ def nuevopost(request):
             subtitulo= informacion["subtitulo"]
             #imagen= informacion["imagen"]
             cuerpo= informacion["cuerpo"]
-            pag= Pagina(titulo=titulo, subtitulo=subtitulo, cuerpo=cuerpo)
-            pag.save()
+            pagina= Pagina(titulo=titulo, subtitulo=subtitulo, cuerpo=cuerpo)
+            pagina.save()
             posteos=Pagina.objects.all()
             return render(request, "pagina_detalle.html", {"posteos": posteos, "mensaje": "Blog guardado"})
         else:

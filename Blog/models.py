@@ -12,10 +12,12 @@ class Pagina(models.Model):
     cuerpo=RichTextField(blank=True, null=True)
     #cuerpo=models.TextField()
     fecha_posteo=models.DateField(auto_now_add=True)
-    
 
     def __str__(self):
-        return f"{self.titulo} - {self.autor}"
+        return self.titulo + " - " + str(self.autor)
+    
+
+
 
 """class Imagenpost(models.Model):
         imagen=models.ImageField(null=True, blank=True, upload_to="post")
