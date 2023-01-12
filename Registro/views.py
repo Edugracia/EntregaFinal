@@ -4,10 +4,14 @@ from Registro.forms import *
 from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.views.defaults import page_not_found
+
 
 
 def inicio(request):
-    return render (request, "inicio.html")
+        return render (request, "inicio.html")
+
+
 
 #CREAR USUARIO TMB LLEVA A REGISTRO Y NO AL INICIO
 def registro(request):
@@ -24,6 +28,7 @@ def registro(request):
         return render(request, "registro.html", {"form":form})
 
 
+
 def login_request(request):
     if request.method=="POST":
         form=AuthenticationForm(request, data=request.POST)
@@ -32,9 +37,11 @@ def login_request(request):
             usu=informacion["username"]
             clave=informacion["password"]
             usuario=authenticate(username=usu, password=clave)
-            if usuario is not None:
-                login(request, usuario)
+            if usuario is not None: #(SI ME DEVOLVIO ALGO, si el usuario esta en la base)si no existe devuelve none
+                login(request, usuario)  #LOGUEa mi usuario
                 return render(request, "inicio.html", {"mensaje":f"Usuario {usu} logueado correctamente"})
+                
+                    
             else:
                 return render(request, "inicio.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
         else:
@@ -42,6 +49,9 @@ def login_request(request):
     else:
         form=AuthenticationForm()
         return render(request, "ingresar.html", {"form":form})
+
+
+
 
 #A ESTO LE FALTA LA IMAGEN 
 def editarperfil(request):
@@ -94,3 +104,7 @@ def agregaravatar(request):
     else:
         form=Avatarform()
         return render(request, "agregaravatar.html", {"form":form, "usuario": request.user})
+
+
+
+#HACER PAGINA PARA LOS ERRORES 404 Y 505
