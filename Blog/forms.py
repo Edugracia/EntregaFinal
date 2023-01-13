@@ -32,7 +32,6 @@ class EditarPagform(forms.Form):
     subtitulo=forms.CharField(label="Apellido")
     cuerpo=forms.CharField(widget=CKEditorWidget())
 
-
     class Meta:
         model=Pagina
         fields=["titulo", "subtitulo", "cuerpo"]

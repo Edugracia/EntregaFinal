@@ -1,34 +1,32 @@
 {% extends "padre.html" %}
 
 
-{% block titulo %} 
+{% block titulo %}
+
 <title>Ingresar</title>
+
 {% endblock %}
 
 {% block content %}
 
-
-
-
 <h1>Ingresar</h1>
-<table>
 
 
     <h3 class="mb-5">{{mensaje}}</h3>
 
-    <form action="{% url 'login' %}" method="POST"> {% csrf_token %}
-    
+    <form action="{% url 'login' %}" method="POST"> {% csrf_token %}    
     
         <table>
     
             {{ form.as_table }}
         
         </table>
-    
+        <br/>
+
         <button class="btn btn-secondary">Ingresar</a>
     
     </form>
-
+    
 {% endblock %}
 
 

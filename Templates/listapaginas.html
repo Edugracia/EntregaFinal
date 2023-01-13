@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block titulo %} 
+
 <title>Lista de post</title>
 
 {% endblock %}
@@ -21,7 +22,7 @@
 <a class="btn btn-secondary" href="{% url 'pagina_detalle' pagina.id %}">Leer mas</a>
     {% if user.is_authenticated %}
         {% if user.id == pagina.autor.id %}
-            <a class="btn btn-success" href="{% url 'editarpagina' pagina.pk %}">Editar</a>
+            <a class="btn btn-success" href="{% url 'editarpagina' pagina.id %}">Editar</a>
             <a class="btn btn-danger" href="{% url 'pagina_borrar' pagina.id %}">Borrar</a>
         {% endif %}
     {% endif %}
@@ -29,7 +30,8 @@
 {% endfor %}
 <br>
 <br>
-<a class="btn btn-primary" href="{% url 'nuevopost'  %}">Nuevo Post</a>
+
+
 
 
 {% endblock %}

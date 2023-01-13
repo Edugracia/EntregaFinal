@@ -74,13 +74,13 @@ def editarpagina(request, id):
             pagina.subtitulo=informacion["subtitulo"]
             pagina.cuerpo=informacion["cuerpo"]
             pagina.save()
-            return render(request, "pagina_detalle.html", {"mensaje":f"Pagina editada correctamente", "imagenpagina": obtenerimagen(request)})
+            return render(request, "pagina_detalle.html", {"mensaje":f"Pagina editada correctamente", "form":form, "pagina":pagina, "imagenpagina": obtenerimagen(request)})
         else:
-            return render(request, "pagina_form_copia.html", {"form":form, "pagina":pagina, "imagenpagina": obtenerimagen(request)})
+            return render(request, "pagina_update.html", {"form":form, "pagina":pagina, "imagenpagina": obtenerimagen(request)})
     
     else:
         form=EditarPagform(initial={"titulo":pagina.titulo, "subtitulo":pagina.subtitulo, "cuerpo":pagina.cuerpo})
-        return render(request, "pagina_form_copia.html", {"form":form, "pagina":pagina, "imagenpagina": obtenerimagen(request)})
+        return render(request, "pagina_update.html", {"form":form, "pagina":pagina, "imagenpagina": obtenerimagen(request)})
 
 #Vistas de paginas
 
