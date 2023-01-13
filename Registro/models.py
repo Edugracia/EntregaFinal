@@ -1,20 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 
 
 class Profile(models.Model):
     #SAQUE DE ACA EL USER Y LO MANDE AL AVATAR
     nombre= models.CharField(max_length=50)
-    descripcion=models.TextField()
+    descripcion=RichTextField(blank=True, null=True)
     email=models.EmailField()
-    web_site=models.URLField(max_length=100)
-    instagram= models.CharField(max_length=255, null=True, blank=True)
-    facebook= models.CharField(max_length=255, null=True, blank=True)
+    web_site=models.URLField(max_length=100, blank=True, null=True)
 
 
     def __str__(self):
-        return str(self.user)
+        return str(self.nombre)
 
 
 class Avatar(models.Model):

@@ -14,6 +14,7 @@ class registrousuarioform(UserCreationForm):
         help_texts = {k:"" for k in fields}
 
 
+
 class UserEditform(UserCreationForm):
     first_name=forms.CharField(label="Nombre")
     last_name=forms.CharField(label="Apellido")
@@ -23,6 +24,7 @@ class UserEditform(UserCreationForm):
     web_site=forms.URLField(max_length=100)
     descripcion = forms.CharField(widget=CKEditorWidget())
 
+
     class Meta:
         model=User
         fields=["first_name", "last_name", "email", "password1", "password2", "web_site", "descripcion"]
@@ -31,4 +33,7 @@ class UserEditform(UserCreationForm):
 
 class Avatarform(forms.Form):
     imagen=forms.ImageField(label="Imagen")
+
+
+#SUBI IMAGEN DE PERFIL Y ESTOY TRATANDO DE MANDARLA A LA FORM
 
