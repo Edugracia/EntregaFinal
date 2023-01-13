@@ -8,15 +8,19 @@
 {% block content %}
 
 {{ mensaje }}
-<h1>Posteos {{pagina.autor.id}}</h1>
+<h1>{{pagina.titulo}}</h1>
+<br/>
+
+
+<img class="img-fluid rounded-circle mb-2" src="{{ imagenpagina }}" alt="...">
+<br/>
+<br/>
+
 
 <small>
-    <p>{{pagina.titulo}}</p>
+
     <p>{{pagina.subtitulo}}</p>
     <p>{{pagina.autor}}</p>
-    {% if pagina.imagen %}
-        <img src="{{pagina.imagen.url}}"><br/><br/>
-    {% endif %}
     <p>{{pagina.cuerpo|safe}}</p>
     <p>{{pagina.fecha_posteo}}</p>
     
@@ -27,7 +31,7 @@
 
 
     {% if user.id == pagina.autor.id %}
-        <a class="btn btn-success" href="{% url 'pagina_editar' pagina.id %}">Editar</a>
+        <a class="btn btn-success" href="{% url 'editarpagina' pagina.id %}">Editar</a>
         <a class="btn btn-danger" href="{% url 'pagina_borrar' pagina.id %}">Borrar</a>
     
     {% endif %}

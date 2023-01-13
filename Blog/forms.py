@@ -14,16 +14,29 @@ class paginaform(forms.Form):
 
 class nuevopostform(forms.Form):
     titulo=forms.CharField(label="Titulo", max_length=100)
-    subtitulo=forms.CharField(label="Subtitulo", max_length=100)
+    subtitulo=forms.CharField(label="Subtitulo", max_length=100)    
     #imagen=forms.ImageField(label="Imagen")
-    cuerpo=forms.CharField(label="Cuerpo", widget=CKEditorWidget())
+    cuerpo = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
         model=Pagina
-        fields=["titulo", "subtitulo", "autor", "cuerpo", "fecha_posteo"]
+        fields=["titulo", "subtitulo", "cuerpo"]
         help_texts = {k:"" for k in fields}
 
+class Imagenpaginaform(forms.Form):
+    imagen=forms.ImageField(label="Imagen")
 
+
+class EditarPagform(forms.Form):
+    titulo=forms.CharField(label="Nombre")
+    subtitulo=forms.CharField(label="Apellido")
+    cuerpo=forms.CharField(widget=CKEditorWidget())
+
+
+    class Meta:
+        model=Pagina
+        fields=["titulo", "subtitulo", "cuerpo"]
+        help_texts = {k:"" for k in fields}
 
 
 """class nuevopostform(forms.Form):
