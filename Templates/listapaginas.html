@@ -24,13 +24,18 @@
         {% if user.id == pagina.autor.id %}
             <a class="btn btn-success" href="{% url 'editarpagina' pagina.id %}">Editar</a>
             <a class="btn btn-danger" href="{% url 'pagina_borrar' pagina.id %}">Borrar</a>
+        
         {% endif %}
     {% endif %}
 
 {% endfor %}
+
 <br>
 <br>
 
+    {% if user.is_authenticated %}
+        <a class="btn btn-primary" href="{% url 'nuevopost'  %}">Publicar</a>
+    {% endif %}
 
 
 

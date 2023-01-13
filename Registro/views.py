@@ -53,7 +53,7 @@ def login_request(request):
 
 #socio= Socios(nombre=nombre, apellido=apellido, email=email, numero_socio=numero_socio) CREO QUE ESTO ES PARA "MOSTRARLO" EN LOS CAMPOS
 
-#A ESTO LE FALTA LA IMAGEN 
+
 def editarperfil(request):
     usuario=request.user
     if request.method=="POST":
@@ -67,7 +67,6 @@ def editarperfil(request):
             usuario.password2=informacion["password2"]
             usuario.web_site=informacion["web_site"]
             usuario.descripcion=informacion["descripcion"]
-            
             usuario.save()
             return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)})
         else:

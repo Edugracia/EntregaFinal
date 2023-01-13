@@ -41,7 +41,7 @@ def nuevopost(request):
 def obtenerimagen(request):
     lista=Imagenpagina.objects.filter(user=request.user)
     if len(lista)!=0:
-        imagenpagina=lista[0].imagen.url
+        imagenpagina=lista[0].imagenpagina.url
     else:
         imagenpagina="/media/post/defaultpost.png"
     return imagenpagina
@@ -50,7 +50,7 @@ def agregarimagen(request):
     if request.method=="POST":
         form=Imagenpaginaform(request.POST, request.FILES)
         if form.is_valid():
-            imagenpagina=Imagenpagina(user=request.user, imagen=request.FILES["imagen"])
+            imagenpagina=Imagenpagina(user=request.user, imagenpagina=request.FILES["imagenpagina"])
             imagenpaginavieja=Imagenpagina.objects.filter(user=request.user)
             if len(imagenpaginavieja)>0:
                 imagenpaginavieja[0].delete()
