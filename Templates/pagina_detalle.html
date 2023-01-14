@@ -17,14 +17,15 @@
     <p>{{pagina.autor}}</p>
     <p>{{pagina.fecha_posteo}}</p>
 
-<img class="container" src="{{ imagenpagina }}" alt="">
+<img src="{{ imgpost }}" alt="...">
+
 <br/>
 <br/>
     <p>{{pagina.cuerpo|safe}}</p>
 
 </small>
 
-    <a class="btn btn-secondary" href="{% url 'pagina_lista' %}">Volver</a>
+    <a class="btn btn-secondary" href="{% url 'leerpaginas' %}">Volver</a>
 
 
     {% if user.id == pagina.autor.id %}

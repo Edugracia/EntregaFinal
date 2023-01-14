@@ -27,8 +27,8 @@ class Pagina(models.Model):
 # Modelo para imagenes de paginas (posteos)
 
 class Imagenpagina(models.Model):
-    imagenpagina=models.ImageField(upload_to="post")
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    imgpost=models.ImageField(upload_to="post")
+    pagina=models.ForeignKey(Pagina, on_delete=models.CASCADE)
     fecha_posteo=models.DateField(auto_now_add=True)
     
 

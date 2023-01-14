@@ -24,7 +24,12 @@ class nuevopostform(forms.Form):
         help_texts = {k:"" for k in fields}
 
 class Imagenpaginaform(forms.Form):
-    imagen=forms.ImageField(label="Imagen")
+    imagenpagina=forms.ImageField(label="Imagen")
+    
+    class Meta:
+        model=Pagina
+        fields=["imagenpagina"]
+        help_texts = {k:"" for k in fields}
 
 
 class EditarPagform(forms.Form):

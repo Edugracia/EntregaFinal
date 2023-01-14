@@ -4,4 +4,4 @@ from .models import *
 # Register your models here.
 
 admin.site.register(Pagina)
-#admin.site.register(Imagenpost)
+admin.site.register(Imagenpagina)

@@ -94,6 +94,7 @@ def agregaravatar(request):
             avatar=Avatar(user=request.user, imagen=request.FILES["imagen"])
             avatarviejo=Avatar.objects.filter(user=request.user)
             if len(avatarviejo)>0:
+                #avatarviejo[0].imagen.delete()
                 avatarviejo[0].delete()
             avatar.save()
             return render(request, "inicio.html", {"mensaje":f"Avatar agregado correctamente"})
@@ -103,7 +104,3 @@ def agregaravatar(request):
     else:
         form=Avatarform()
         return render(request, "agregaravatar.html", {"form":form, "usuario": request.user})
-
-
-
-#HACER PAGINA PARA LOS ERRORES 404 Y 505

@@ -39,29 +39,32 @@ def nuevopost(request):
 
 
 def obtenerimagen(request):
-    lista=Imagenpagina.objects.filter(user=request.user)
+    lista=Imagenpagina.objects.filter(pagina=request.pagina_id)
     if len(lista)!=0:
-        imagenpagina=lista[0].imagenpagina.url
+        imgpost=lista[0].imgpost.url
     else:
-        imagenpagina="/media/post/defaultpost.png"
-    return imagenpagina
+        imgpost=""
+    return imgpost
 
 def agregarimagen(request):
     if request.method=="POST":
         form=Imagenpaginaform(request.POST, request.FILES)
         if form.is_valid():
-            imagenpagina=Imagenpagina(user=request.user, imagenpagina=request.FILES["imagenpagina"])
-            imagenpaginavieja=Imagenpagina.objects.filter(user=request.user)
-            if len(imagenpaginavieja)>0:
-                imagenpaginavieja[0].delete()
-            imagenpagina.save()
-            return render(request, "pagina_detalle.html")
-        else:
-            return render(request, "agregar_Imagen.html", {"form": form, "usuario": request.user, "mensaje":"Error al agregar imagen"})
+            imgpost=Imagenpagina(user=request.user, imgpost=request.FILES["imgpost"])
+            imgpostvieja=Imagenpagina.objects.filter(user=request.user)
+            if len(imgpostvieja)>0:
+                imgpostvieja[0].delete()
+            imgpost.save()
+            return render(request, "pagina_detalle.html", {"imgpost": obtenerimagen(request)})
+        """else:
+            return render(request, "agregar_Imagen.html", {"form": form, "usuario": request.user, "mensaje":"Error al agregar imagen"})"""
 
     else:
-        form=Imagenpaginaform()
-        return render(request, "agregar_Imagen.html", {"form":form, "usuario": request.user})
+        form=Imagenpaginaform(instance=imgpost)
+        return render(request, "agregar_Imagen.html", {"form":form, "imgpost": request.pagina})
+
+
+
 
 
 def editarpagina(request, id):
@@ -74,13 +77,20 @@ def editarpagina(request, id):
             pagina.subtitulo=informacion["subtitulo"]
             pagina.cuerpo=informacion["cuerpo"]
             pagina.save()
-            return render(request, "pagina_detalle.html", {"mensaje":f"Pagina editada correctamente", "form":form, "pagina":pagina, "imagenpagina": obtenerimagen(request)})
+            return render(request, "pagina_detalle.html", {"form":form, "pagina":pagina.pagina, "imgpost": obtenerimagen(request)})
         else:
-            return render(request, "pagina_update.html", {"form":form, "pagina":pagina, "imagenpagina": obtenerimagen(request)})
+            return render(request, "pagina_update.html", {"form":form, "pagina":pagina.pagina, "imgpost": obtenerimagen(request)})
     
     else:
         form=EditarPagform(initial={"titulo":pagina.titulo, "subtitulo":pagina.subtitulo, "cuerpo":pagina.cuerpo})
-        return render(request, "pagina_update.html", {"form":form, "pagina":pagina, "imagenpagina": obtenerimagen(request)})
+        return render(request, "pagina_update.html", {"form":form, "pagina":pagina.pagina, "imgpost": obtenerimagen(request)})
+
+
+
+
+
+
+
 
 #Vistas de paginas
 
@@ -106,15 +116,34 @@ class PaginaList(ListView):
     template_name="listapaginas.html"
     ordering= ["-fecha_posteo"]
 
-class PaginaDetalle(DetailView):
+"""class PaginaDetalle(DetailView):
     model=Pagina
-    template_name="pagina_detalle.html"
+    template_name="pagina_detalle.html" 
+    
+    
+    imgpost= obtenerimagen(request)""" #VER COMO PASARLE DE CONTEXTO LA IMAGEN"""
+
+def leerpaginas(request):
+    paginas=Pagina.objects.all()
+    contexto={"paginas":paginas}
+    return render(request, "listapaginas_copia.html", contexto)
+
+
+def paginadetalle(request, id=id):
+    pagina=Pagina.objects.get(id=id)
+    
+    return render(request, "pagina_detalle.html", {"pagina":pagina, "imgpost":obtenerimagen(request)}) #ESTO ESTARIA QUEDA VER EL DRAMA DEL OBTENER IMAGEN DE ARRIBA
 
 
 
 
 
 
+#asi anda
+"""def paginadetalle(request, id=id):
+    pagina=Pagina.objects.get(id=id)
+    context={"pagina":pagina}
+    return render(request, "pagina_detalle.html", context)"""
 
 """def crearpagina(request):
     if request.method=="POST":
