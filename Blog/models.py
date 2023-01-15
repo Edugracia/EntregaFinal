@@ -12,6 +12,7 @@ class Pagina(models.Model):
     titulo=models.CharField(max_length=100)
     subtitulo=models.CharField(max_length=100)
     autor= models.ForeignKey(User, on_delete=models.CASCADE)
+    
     cuerpo=RichTextField(null=True, blank=True)
     fecha_posteo=models.DateField(auto_now_add=True)
     actualizado=models.DateField(auto_now_add=True)
@@ -32,5 +33,5 @@ class Imagenpagina(models.Model):   #POSTEO
     fecha_posteo=models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.pagina}"
+        return f"{self.pagina} - {self.fecha_posteo}"
 

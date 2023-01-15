@@ -16,7 +16,7 @@
 
 <br/>
 
-<form action="{% url 'nuevopost' %}" method="POST"> {% csrf_token %}
+<form action="{% url 'nuevopost' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
     <table>
 
@@ -27,9 +27,11 @@
 
 <br/>
     <button class="btn btn-secondary">Publicar</a>  <!-- ESTE PUBLICAR DEBERIA LLEVARME A LA PAG DETALLE Y MOSTRARME EL POST -->
+
+    <a class="btn btn-secondary" href="{% url 'agregarimagen'%}">Editar imagen</a>
     
 </form>
-<a class="btn btn-secondary" href="{% url 'agregarimagen'%}">Agregar imagen</a>
+
 
 
 

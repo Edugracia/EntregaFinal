@@ -15,7 +15,7 @@ class paginaform(forms.Form):
 class nuevopostform(forms.Form):
     titulo=forms.CharField(label="Titulo", max_length=100)
     subtitulo=forms.CharField(label="Subtitulo", max_length=100)    
-    #imagen=forms.ImageField(label="Imagen")
+    
     cuerpo = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
@@ -33,8 +33,8 @@ class Imagenpaginaform(forms.Form):
 
 
 class EditarPagform(forms.Form):
-    titulo=forms.CharField(label="Nombre")
-    subtitulo=forms.CharField(label="Apellido")
+    titulo=forms.CharField(label="Titulo")
+    subtitulo=forms.CharField(label="Subtitulo")
     cuerpo=forms.CharField(widget=CKEditorWidget())
 
 

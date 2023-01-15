@@ -21,11 +21,11 @@ def blogs(request):
 def nuevopost(request):
     autor= request.user
     if request.method=="POST":
-        formulario=nuevopostform(request.POST)
+        formulario=nuevopostform(request.POST, request.FILES)
         if formulario.is_valid():            
             informacion= formulario.cleaned_data
             titulo= informacion["titulo"]
-            subtitulo= informacion["subtitulo"]            
+            subtitulo= informacion["subtitulo"]
             cuerpo= informacion["cuerpo"]
             pagina= Pagina(autor=autor, titulo=titulo, subtitulo=subtitulo, cuerpo=cuerpo)
             pagina.save()
@@ -39,17 +39,45 @@ def nuevopost(request):
 
 
 def obtenerimagen(request):
-    lista=Imagenpagina.objects.filter(paginadetalle)
+    lista=Imagenpagina.objects.filter(pagina=request.pagina.id)
     if len(lista)!=0:
         imgpost=lista[0].imgpost.url
     else:
         imgpost=""
     return imgpost
 
+"""def obtenerimagen(request):
+    lista=Imagenpagina.objects.filter(pagina_id = request.user.pagina)
+    if len(lista)!=0:
+        imgpost=lista[0].imgpost.url
+    else:
+        imgpost=""
+    return imgpost"""
+
 
 
 
 @login_required
+def agregarimagen(request):
+    if request.method=="POST":
+        form=Imagenpaginaform(request.POST, request.FILES)
+        if form.is_valid():
+            imgpost=Imagenpagina(user=request.user, imgpost=request.FILES["imgpost"])
+            imgpostvieja=Imagenpagina.objects.filter(user=request.user)
+            if len(imgpostvieja)>0:
+                imgpostvieja[0].delete()
+            imgpost.save()
+            return render(request, "pagina_detalle.html", {"imgpost": obtenerimagen(request)})
+        
+
+    else:
+        form=Imagenpaginaform()  #####saque esto instance=imgpost
+        return render(request, "agregar_Imagen.html", {"form":form, "imgpost": request.pagina})
+
+
+
+
+"""@login_required
 def agregarimagen(request):
     if request.method=="POST":
         form=Imagenpaginaform(request.POST, request.FILES)
@@ -60,15 +88,14 @@ def agregarimagen(request):
             
             imagenposteo.save()
             return render(request, "inicio.html")
-        """else:
-            return render(request, "agregar_Imagen.html", {"form": form, "usuario": request.user, "mensaje":"Error al agregar imagen"})"""
+
 
     else:
         form=Imagenpaginaform()  #####saque esto instance=imgpost
         return render(request, "agregar_Imagen.html", {"form":form})
 
-
-"""@login_required
+#Esta es la que tenia antes de todo
+@login_required
 def agregarimagen(request):
     if request.method=="POST":
         form=Imagenpaginaform(request.POST, request.FILES)
@@ -92,9 +119,9 @@ def agregarimagen(request):
 def editarpagina(request, id):
     pagina=Pagina.objects.get(id=id) #ver si esto va por get o post
     if request.method=="POST":
-        form=EditarPagform(request.POST)
-        if form.is_valid():
-            informacion=form.cleaned_data
+        formulario=EditarPagform(request.POST)
+        if formulario.is_valid():
+            informacion=formulario.cleaned_data
             pagina.titulo=informacion["titulo"]
             pagina.subtitulo=informacion["subtitulo"]
             pagina.cuerpo=informacion["cuerpo"]
@@ -103,7 +130,7 @@ def editarpagina(request, id):
         pass
     else:
         formulario=EditarPagform(initial={"titulo":pagina.titulo, "subtitulo":pagina.subtitulo, "cuerpo":pagina.cuerpo})
-        return render(request, "pagina_update.html", {"form":formulario, "pagina":pagina})
+        return render(request, "pagina_update.html", {"formulario":formulario, "pagina":pagina})
 
 
 
