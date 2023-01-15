@@ -7,7 +7,8 @@
 
 {% block content %}
 
-<h1>Editar perfil</h1>
+<h1>Editando {{user.username}}</h1>
+
 
 <img class="img-fluid rounded-circle mb-2" src="{{ avatar }}" alt="...">
 <br/>
@@ -22,8 +23,8 @@
     
     
         <table>
-    
-            {{ form.as_table }}
+            {{form.media}}
+            {{form.as_table}}
         
         </table>
     

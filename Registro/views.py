@@ -53,7 +53,8 @@ def login_request(request):
 
 #socio= Socios(nombre=nombre, apellido=apellido, email=email, numero_socio=numero_socio) CREO QUE ESTO ES PARA "MOSTRARLO" EN LOS CAMPOS
 
-
+#de aca voy a sacar las pass para hacer un modulo nuevo
+@login_required
 def editarperfil(request):
     usuario=request.user
     if request.method=="POST":
@@ -67,7 +68,9 @@ def editarperfil(request):
             usuario.password2=informacion["password2"]
             usuario.web_site=informacion["web_site"]
             usuario.descripcion=informacion["descripcion"]
+            
             usuario.save()
+            usuario=User.objects.all()
             return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)})
         else:
             return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
@@ -87,6 +90,7 @@ def obteneravatar(request):
         avatar="/media/avatars/defaultavatar.jpg"
     return avatar
 
+@login_required
 def agregaravatar(request):
     if request.method=="POST":
         form=Avatarform(request.POST, request.FILES)

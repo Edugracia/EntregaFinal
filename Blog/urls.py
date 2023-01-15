@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import *
 from . import views
-from Registro.views import *
+from Registro.views import * #CREO QUE ESTO ESTA AL PEDO
 
 
 
@@ -23,3 +23,5 @@ urlpatterns = [
 """path('pagina/editar/<pk>', PaginaUpdate.as_view(), name="pagina_editar"),"""
 """path('pagina/<pk>', PaginaDetalle.as_view(), name="pagina_detalle"),"""
 """path('pagina/list/', PaginaList.as_view(), name="pagina_lista"),"""
+
+"""path('editarpagina/<id>', editarpagina, name="editarpagina"),"""

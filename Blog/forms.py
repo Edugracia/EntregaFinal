@@ -26,10 +26,10 @@ class nuevopostform(forms.Form):
 class Imagenpaginaform(forms.Form):
     imagenpagina=forms.ImageField(label="Imagen")
     
-    class Meta:
+    """class Meta:
         model=Pagina
         fields=["imagenpagina"]
-        help_texts = {k:"" for k in fields}
+        help_texts = {k:"" for k in fields}""" #comente esto
 
 
 class EditarPagform(forms.Form):
