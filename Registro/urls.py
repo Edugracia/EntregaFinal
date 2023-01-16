@@ -10,7 +10,7 @@ path('registro', registro, name="registro"), #sI borro este registro?
 path("login/", login_request, name="login"),
 path("logout/", LogoutView.as_view(), name="logout"),
 path("editarperfil/", editarperfil, name="editarperfil"),
-path('profile/<pk>', views.PaginaDetalle.as_view(), name="profile"),
+path('profile/<pk>', views.PerfilDetalle.as_view(), name="profile"),
 path("agregaravatar/", agregaravatar, name="agregaravatar"),
 ]
 

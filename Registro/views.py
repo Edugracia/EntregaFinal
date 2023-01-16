@@ -120,6 +120,6 @@ def agregaravatar(request):
 	return render(request, 'profile_page.html', context)"""
 
 
-class PaginaDetalle(DetailView):
+class PerfilDetalle(DetailView): 
     model=Profile
-    template_name="profile_page.html" 
+    template_name="profile_page.html"
