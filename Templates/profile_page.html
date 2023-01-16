@@ -2,7 +2,7 @@
 
 
 {% block titulo %} 
-<title>Profile: {{profile.nombre}}</title>
+<title>Profile: {{user.first_name}}</title>
 {% endblock %}
 
 {% block content %}
@@ -16,11 +16,15 @@
 
 <small>
 
-    <p>{{profile.nombre}}</p>
-    <p>{{profile.last_name}}</p>
-    <p>{{profile.email}}</p>
-    <p>{{profile.web_site}}</p>
-    <p>{{profile.descripcion|safe}}</p>
+    <p>{{user.first_name}}</p>
+    <p>{{user.last_name}}</p>
+    <p>{{user.email}}</p>
+    <p>{{user.web_site}}</p>
+    <p>{{user.descripcion}}</p>
+
+
+
+
 
 </small>
 
@@ -29,3 +33,10 @@
 
 
 {% endblock %}
+
+
+<p>{{profile.nombre}}</p>
+<p>{{profile.last_name}}</p>
+<p>{{profile.email}}</p>
+<p>{{profile.web_site}}</p>
+<p>{{profile.descripcion|safe}}</p>

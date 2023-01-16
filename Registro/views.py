@@ -121,5 +121,11 @@ def agregaravatar(request):
 
 
 class PerfilDetalle(DetailView): 
-    model=Profile
+    model=User   #Y SI USO EL MODELO USER?
     template_name="profile_page.html"
+
+
+
+
+
+

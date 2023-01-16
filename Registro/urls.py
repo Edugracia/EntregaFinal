@@ -12,6 +12,7 @@ path("logout/", LogoutView.as_view(), name="logout"),
 path("editarperfil/", editarperfil, name="editarperfil"),
 path('profile/<pk>', views.PerfilDetalle.as_view(), name="profile"),
 path("agregaravatar/", agregaravatar, name="agregaravatar"),
+
 ]
 
 #REVISAR PORQUE DESPUES DE LOGEARME ME LLEVA A REGISTRO/LOGUIN Y NI AL INICIO

@@ -32,7 +32,7 @@ def nuevopost(request):
             subtitulo= informacion["subtitulo"]
             imagen= informacion["imagen"]
             cuerpo= informacion["cuerpo"]
-            pagina= Pagina(usuario=usuario, titulo=titulo, subtitulo=subtitulo, imagen=imagen, cuerpo=cuerpo)
+            pagina= Pagina(user=usuario, titulo=titulo, subtitulo=subtitulo, imagen=imagen, cuerpo=cuerpo)
             pagina.save()
             
             return render(request, "pagina_detalle.html", {"pagina": pagina, "mensaje": "Blog guardado"})

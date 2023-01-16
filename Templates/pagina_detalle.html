@@ -15,7 +15,7 @@
 <small>
 
     <p>{{pagina.subtitulo}}</p>
-    <p>Por: {{pagina.usuario}}</p>
+    <p>Por: {{pagina.user}}</p>
     <p>Creado: {{pagina.creado}}</p>
     <p>Ultima edicion: {{pagina.editado}}</p>
     
@@ -35,7 +35,7 @@
     <a class="btn btn-secondary" href="{% url 'leerpaginas' %}">Volver</a>
 
 
-    {% if user.id == pagina.usuario.id %}
+    {% if user.id == pagina.user.id %}
         <a class="btn btn-success" href="{% url 'editarpagina' pagina.id %}">Editar</a>
         <a class="btn btn-danger" href="{% url 'pagina_borrar' pagina.id %}">Borrar</a>
     
