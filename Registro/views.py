@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from Blog.models import *
 from Registro.forms import *
 from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
@@ -51,7 +52,7 @@ def login_request(request):
         return render(request, "ingresar.html", {"form":form})
 
 
-#socio= Socios(nombre=nombre, apellido=apellido, email=email, numero_socio=numero_socio) CREO QUE ESTO ES PARA "MOSTRARLO" EN LOS CAMPOS
+
 
 #de aca voy a sacar las pass para hacer un modulo nuevo
 @login_required
@@ -70,8 +71,8 @@ def editarperfil(request):
             usuario.descripcion=informacion["descripcion"]
             
             usuario.save()
-            usuario=User.objects.all()
-            return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)})
+            
+            return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)}) 
         else:
             return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
     
@@ -108,3 +109,11 @@ def agregaravatar(request):
     else:
         form=Avatarform()
         return render(request, "agregaravatar.html", {"form":form, "usuario": request.user})
+
+
+
+
+def paginaperfil(request, pk):
+	perfil = Pagina.autor.get(id=pk)
+	context = {'perfil':perfil}
+	return render(request, 'profile_page.html', context)

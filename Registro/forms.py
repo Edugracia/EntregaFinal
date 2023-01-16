@@ -21,7 +21,7 @@ class UserEditform(UserCreationForm):
     email= forms.EmailField(label="Email")
     password1= forms.CharField(label="Contraseña", widget=forms.PasswordInput)
     password2= forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput)
-    web_site=forms.URLField(max_length=100)
+    web_site=forms.CharField(max_length=100)
     descripcion = forms.CharField(widget=CKEditorWidget())
 
 

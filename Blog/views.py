@@ -17,6 +17,10 @@ def inicio(request):
 def blogs(request):
     return render (request, "blogs.html")
 
+
+
+
+
 @login_required
 def nuevopost(request):
     autor= request.user
@@ -26,11 +30,12 @@ def nuevopost(request):
             informacion= formulario.cleaned_data
             titulo= informacion["titulo"]
             subtitulo= informacion["subtitulo"]
+            imagen= informacion["imagen"]
             cuerpo= informacion["cuerpo"]
-            pagina= Pagina(autor=autor, titulo=titulo, subtitulo=subtitulo, cuerpo=cuerpo)
+            pagina= Pagina(autor=autor, titulo=titulo, subtitulo=subtitulo, imagen=imagen, cuerpo=cuerpo)
             pagina.save()
-            posteos=Pagina.objects.all()
-            return render(request, "pagina_detalle.html", {"posteos": posteos, "mensaje": "Blog guardado"})
+            
+            return render(request, "pagina_detalle.html", {"pagina": pagina, "mensaje": "Blog guardado"})
         else:
             return render(request, "pagina_form_copia.html", {"mensaje": "Informacion no Valida"})
     else:
@@ -38,13 +43,35 @@ def nuevopost(request):
         return render(request, "pagina_form_copia.html", {"formulario": formulario})
 
 
-def obtenerimagen(request):
+
+@login_required
+def editarpagina(request, id):
+    pagina=Pagina.objects.get(id=id) #ver si esto va por get o post
+    if request.method=="POST":
+        formulario=EditarPagform(request.POST, request.FILES)
+        if formulario.is_valid():
+            informacion=formulario.cleaned_data
+            pagina.titulo=informacion["titulo"]
+            pagina.subtitulo=informacion["subtitulo"]
+            pagina.imagen=informacion["imagen"]
+            pagina.cuerpo=informacion["cuerpo"]
+            
+            pagina.save()
+            pass
+            return render(request, "pagina_detalle.html", {"pagina":pagina})
+        
+    else:
+        formulario=EditarPagform(initial={"titulo":pagina.titulo, "subtitulo":pagina.subtitulo, "cuerpo":pagina.cuerpo})
+        return render(request, "pagina_update.html", {"formulario":formulario, "pagina":pagina})
+
+
+"""def obtenerimagen(request):
     lista=Imagenpagina.objects.filter(pagina=request.pagina.id)
     if len(lista)!=0:
         imgpost=lista[0].imgpost.url
     else:
         imgpost=""
-    return imgpost
+    return imgpost"""
 
 """def obtenerimagen(request):
     lista=Imagenpagina.objects.filter(pagina_id = request.user.pagina)
@@ -57,7 +84,7 @@ def obtenerimagen(request):
 
 
 
-@login_required
+"""@login_required
 def agregarimagen(request):
     if request.method=="POST":
         form=Imagenpaginaform(request.POST, request.FILES)
@@ -72,7 +99,7 @@ def agregarimagen(request):
 
     else:
         form=Imagenpaginaform()  #####saque esto instance=imgpost
-        return render(request, "agregar_Imagen.html", {"form":form, "imgpost": request.pagina})
+        return render(request, "agregar_Imagen.html", {"form":form, "imgpost": request.pagina})"""
 
 
 
@@ -115,7 +142,7 @@ def agregarimagen(request):
 
 
 
-@login_required
+"""@login_required
 def editarpagina(request, id):
     pagina=Pagina.objects.get(id=id) #ver si esto va por get o post
     if request.method=="POST":
@@ -130,7 +157,7 @@ def editarpagina(request, id):
         pass
     else:
         formulario=EditarPagform(initial={"titulo":pagina.titulo, "subtitulo":pagina.subtitulo, "cuerpo":pagina.cuerpo})
-        return render(request, "pagina_update.html", {"formulario":formulario, "pagina":pagina})
+        return render(request, "pagina_update.html", {"formulario":formulario, "pagina":pagina})"""
 
 
 
@@ -196,10 +223,16 @@ def leerpaginas(request):
     return render(request, "listapaginas_copia.html", {"paginas":paginas})  #probando cambio, la comentada de abajo era la anteior
 
 
-def paginadetalle(request, id=id):
+"""def paginadetalle(request, id=id):
     pagina=Pagina.objects.get(id=id)
-    
-    return render(request, "pagina_detalle.html", {"pagina":pagina}) #ESTO ESTARIA ("imgpost":obtenerimagen(request))QUEDA VER EL DRAMA DEL OBTENER IMAGEN DE ARRIBA
+    contexto={"pagina":pagina}
+    return render(request, "pagina_detalle.html", contexto) #ESTO ESTARIA ("imgpost":obtenerimagen(request))QUEDA VER EL DRAMA DEL OBTENER IMAGEN DE ARRIBA"""
+
+
+def paginadetalle(request, pk):
+	pagina = Pagina.objects.get(id=pk)
+	context = {'pagina':pagina}
+	return render(request, 'pagina_detalle.html', context)
 
 
 

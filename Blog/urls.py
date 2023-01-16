@@ -7,12 +7,11 @@ from Registro.views import * #CREO QUE ESTO ESTA AL PEDO
 
 urlpatterns = [ 
     #SAQUE EL INICIO DE ACA
-    path('nuevopost/', nuevopost, name="nuevopost"),
-    path('editarpagina/<id>', editarpagina, name="editarpagina"),  #(CON EL ID ANDA queda ver la form para editar)le clave el pk si se lo pongo entra a la lista, pero si se lo saco se rompe el boton editar
-    path("agregarimagen/", agregarimagen, name="agregarimagen"),
+    path('nuevopost/', nuevopost, name="nuevopost"), #(CON EL ID ANDA queda ver la form para editar)le clave el pk si se lo pongo entra a la lista, pero si se lo saco se rompe el boton editar
+    path('editarpagina/<id>', editarpagina, name="editarpagina"),
     path('pagina/borrar/<pk>', PaginaDelete.as_view(), name="pagina_borrar"),
     
-    path('paginadetalle/<id>', views.paginadetalle, name="paginadetalle"),
+    path('paginadetalle/<pk>', views.paginadetalle, name="paginadetalle"),
     path('leerpaginas/', views.leerpaginas, name="leerpaginas"),
     
 
@@ -25,3 +24,9 @@ urlpatterns = [
 """path('pagina/list/', PaginaList.as_view(), name="pagina_lista"),"""
 
 """path('editarpagina/<id>', editarpagina, name="editarpagina"),"""
+
+
+
+"""    path("agregarimagen/", agregarimagen, name="agregarimagen"),"""
+
+"""    """

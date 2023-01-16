@@ -11,13 +11,19 @@
 <h1>{{pagina.titulo}}</h1>
 <br/>
 
+
 <small>
 
     <p>{{pagina.subtitulo}}</p>
-    <p>{{pagina.autor}}</p>
-    <p>{{pagina.fecha_posteo}}</p>
+    <p>Por: {{pagina.autor}}</p>
+    <p>Creado: {{pagina.creado}}</p>
+    <p>Ultima edicion: {{pagina.editado}}</p>
+    
+    
+    <img class="container" src="{{pagina.imagen.url}}">
 
-<img src="{{ imgpost }}" alt="...">
+    
+
 
 <br/>
 <br/>
