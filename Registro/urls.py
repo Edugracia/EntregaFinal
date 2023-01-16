@@ -15,9 +15,3 @@ path("agregaravatar/", agregaravatar, name="agregaravatar"),
 ]
 
 #REVISAR PORQUE DESPUES DE LOGEARME ME LLEVA A REGISTRO/LOGUIN Y NI AL INICIO
-
-
-#probando vistas badasadas en clases
-"""path('paginaperfil/<pk>', views.paginaperfil, name="paginaperfil"),"""
-
-"""path("<int:pk>/perfil/", ShowProfilePageView.as_view(), name="paginaperfil"),"""

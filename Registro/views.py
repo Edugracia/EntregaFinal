@@ -1,8 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from .models import *
 from Blog.models import *
 from Registro.forms import *
-from django.views.generic import DetailView
 from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -114,32 +113,7 @@ def agregaravatar(request):
 
 
 
-
-
-
-"""class ShowProfilePageView(DetailView):
-    model=Profile
-    template_name="profile_page.html"
-
-    def get_context_data(self, *args, **kwargs):
-        usuarios=Profile.objects.all()
-        contexto=super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
-
-        pagina_usuarios=get_object_or_404(Profile, id=self.kwargs["pk"])
-        contexto["pagina_usuarios"]=pagina_usuarios
-        return contexto"""
-
-
-
-
-
-
-#probando vistas basadas en clases
-
 def paginaperfil(request, pk):
-	profile = Profile.objects.get(id=pk)
-	context = {'profile':profile}
+	perfil = Pagina.usuario.get(id=pk)
+	context = {'perfil':perfil}
 	return render(request, 'profile_page.html', context)
-
-
-

@@ -17,9 +17,7 @@
 
 {% for pagina in paginas %}
 
-<h5>{{ pagina.titulo }} - {{ pagina.usuario }}</h5>  
-
-<a href="{% url 'paginaperfil' pagina.usuario.profile.id %}">{{ pagina.usuario }}</a>
+<h5>{{ pagina.titulo }} - {{ pagina.usuario }} - {{ pagina.fecha_posteo }}</h5>
 
 <a class="btn btn-secondary" href="{% url 'paginadetalle' pagina.id %}">Leer mas</a>
     {% if user.is_authenticated %}

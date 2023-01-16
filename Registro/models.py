@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextField
 
 
 class Profile(models.Model):
-    usuario=models.ForeignKey(User, on_delete=models.CASCADE) #SAQUE DE ACA EL USER Y LO MANDE AL AVATAR DESPUES LO VUELVO A PONER PARA PROBAR LO DE LA PAG DE PERFIL
+    user=models.ForeignKey(User, on_delete=models.CASCADE) #SAQUE DE ACA EL USER Y LO MANDE AL AVATAR DESPUES LO VUELVO A PONER PARA PROBAR LO DE LA PAG DE PERFIL
     nombre= models.CharField(max_length=50)
     descripcion=RichTextField(blank=True, null=True)
     email=models.EmailField()
