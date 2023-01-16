@@ -2,7 +2,7 @@
 
 
 {% block titulo %} 
-<title>Profile: {usuario.first_name}}</title>
+<title>Profile: {{profile.nombre}}</title>
 {% endblock %}
 
 {% block content %}
@@ -14,20 +14,15 @@
 
 <small>
 
-    <p>{{usuario.first_name}}</p>
-    <p>{{usuario.last_name}}</p>
-    <p>{{usuario.email}}</p>
-    <p>{{usuario.web_site}}</p>
-    <p>{{usuario.descripcion|safe}}</p>
+    <p>{{profile.nombre}}</p>
+    <p>{{profile.last_name}}</p>
+    <p>{{profile.email}}</p>
+    <p>{{profile.web_site}}</p>
+    <p>{{profile.descripcion|safe}}</p>
 
 </small>
 
-    <a class="btn btn-secondary" href="{% url 'leerpaginas' %}">Volver</a>
-
-
-
-
-
+<a class="btn btn-secondary" href="{% url 'leerpaginas' %}">Volver</a>
 
 
 

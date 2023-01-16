@@ -3,6 +3,7 @@ from .models import *
 from Blog.models import *
 from Registro.forms import *
 from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
+from django.views.generic.detail import DetailView
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.defaults import page_not_found
@@ -113,7 +114,12 @@ def agregaravatar(request):
 
 
 
-def paginaperfil(request, pk):
+"""def paginaperfil(request, pk):
 	perfil = Pagina.usuario.get(id=pk)
 	context = {'perfil':perfil}
-	return render(request, 'profile_page.html', context)
+	return render(request, 'profile_page.html', context)"""
+
+
+class PaginaDetalle(DetailView):
+    model=Profile
+    template_name="profile_page.html" 
