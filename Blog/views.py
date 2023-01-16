@@ -23,7 +23,7 @@ def blogs(request):
 
 @login_required
 def nuevopost(request):
-    autor= request.user
+    usuario= request.user
     if request.method=="POST":
         formulario=nuevopostform(request.POST, request.FILES)
         if formulario.is_valid():            
@@ -32,7 +32,7 @@ def nuevopost(request):
             subtitulo= informacion["subtitulo"]
             imagen= informacion["imagen"]
             cuerpo= informacion["cuerpo"]
-            pagina= Pagina(autor=autor, titulo=titulo, subtitulo=subtitulo, imagen=imagen, cuerpo=cuerpo)
+            pagina= Pagina(uauario=usuario, titulo=titulo, subtitulo=subtitulo, imagen=imagen, cuerpo=cuerpo)
             pagina.save()
             
             return render(request, "pagina_detalle.html", {"pagina": pagina, "mensaje": "Blog guardado"})

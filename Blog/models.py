@@ -11,14 +11,14 @@ from django.urls import reverse
 class Pagina(models.Model):
     titulo=models.CharField(max_length=100)
     subtitulo=models.CharField(max_length=100)
-    autor= models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario= models.ForeignKey(User, on_delete=models.CASCADE)
     imagen= models.ImageField(null=True, blank=True, upload_to="post")
     cuerpo=RichTextField(null=True, blank=True)
     creado=models.DateField(auto_now_add=True)
     editado=models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.titulo + " - " + str(self.autor)
+        return self.titulo + " - " + str(self.usuario)
 
     """def get_absolute_url(self):
         return reverse("pagina_detalle", args=(str(self.id)))"""

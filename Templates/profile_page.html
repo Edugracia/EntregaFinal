@@ -2,13 +2,13 @@
 
 
 {% block titulo %} 
-<title>Profile: {usuario.first_name}}</title>
+<title>Profile: {{pagina_usuarios}}</title>
 {% endblock %}
 
 {% block content %}
 
 {{ mensaje }}
-<h1>{{usuario.user}}</h1>
+<h1>{{profile.usuario.username}}</h1>
 <br/>
 <img class="img-fluid rounded-circle mb-2" src="{{ avatar }}" alt="...">
 
@@ -22,10 +22,14 @@
 
 </small>
 
-    <a class="btn btn-secondary" href="{% url 'leerpaginas' %}">Volver</a>
 
 
+{% for profile in object_list %}
 
+<h5>{{ profile }}</h5>
+
+
+{% endfor %}
 
 
 

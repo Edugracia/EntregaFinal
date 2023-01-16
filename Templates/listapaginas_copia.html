@@ -17,11 +17,13 @@
 
 {% for pagina in paginas %}
 
-<h5>{{ pagina.titulo }} - {{ pagina.autor }} - {{ pagina.fecha_posteo }}</h5>
+<h5>{{ pagina.titulo }} - {{ pagina.usuario }}</h5>  
+
+<a href="{% url 'paginaperfil' pagina.usuario.profile.id %}">{{ pagina.usuario }}</a>
 
 <a class="btn btn-secondary" href="{% url 'paginadetalle' pagina.id %}">Leer mas</a>
     {% if user.is_authenticated %}
-        {% if user.id == pagina.autor.id %}
+        {% if user.id == pagina.usuario.id %}
             <a class="btn btn-success" href="{% url 'editarpagina' pagina.id %}">Editar</a>
             <a class="btn btn-danger" href="{% url 'pagina_borrar' pagina.id %}">Borrar</a>
         
