@@ -186,14 +186,14 @@ def buscarmensaje(request):
         mensajeentrada= Mensajeentrada.objects.filter(receptor__icontains=receptor)
         return render(request, "mensaje_entrada.html", {"mensajeentrada": mensajeentrada})
     else:
-        return render(request, "inicio.html", {"mensaje": "ingrese receptor"})
+        return render(request, "inicio.html", {"mensaje": "ingrese receptor"})"""
 
 
 
 
-
+@login_required
 def enviarmensaje(request):
-    emisor= request.emisor
+    receptor= request.user # aca creo que deberia pedir un receptor, no un emisor
     #receptor= request.mensajeentrada.receptor
     if request.method=="POST":
         formulario=Mensajesalidaform(request.POST)
@@ -201,7 +201,7 @@ def enviarmensaje(request):
             informacion= formulario.cleaned_data
             #receptor= informacion["receptor"]
             cuerpo= informacion["cuerpo"]
-            mensajesalida= Mensajesalida(user=emisor, cuerpo=cuerpo)
+            mensajesalida= Mensajesalida(user=receptor, cuerpo=cuerpo)
             mensajesalida.save()
             
             return render(request, "mensaje_salida.html", {"mensajesalida": mensajesalida, f"mensaje": "Mensaje enviado a {receptor}"})
@@ -209,4 +209,4 @@ def enviarmensaje(request):
             return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
     else:
         formulario=Mensajesalidaform()
-        return render(request, "mensaje_salida.html", {"formulario": formulario})"""
+        return render(request, "mensaje_salida.html", {"formulario": formulario})

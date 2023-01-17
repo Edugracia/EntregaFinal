@@ -16,7 +16,7 @@ path('profile/<pk>', views.profile, name="profile"), #probando esta
 path("agregaravatar/", agregaravatar, name="agregaravatar"),
 
 
-#path("enviarmensaje/", enviarmensaje, name="enviarmensaje"),
+path("enviarmensaje/", enviarmensaje, name="enviarmensaje"),
 #path("buscarmensaje/", buscarmensaje, name="buscarmensaje"),
 
 ]

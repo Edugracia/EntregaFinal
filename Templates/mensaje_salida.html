@@ -1,0 +1,32 @@
+{% extends "padre.html" %}
+
+
+{% block titulo %} 
+<title>Mensajes</title>
+{% endblock %}
+
+{% block content %}
+
+<h1>MENSAJE DE {{user.username}} PARA </h1>
+
+
+
+    <h3 class="mb-5">{{mensaje}}</h3>
+
+    <form action="{% url 'enviarmensaje' %}" method="POST"> {% csrf_token %}
+    
+    
+        <table>
+            {{formulario.media}}
+            {{formulario.as_table}}
+        
+        </table>
+    
+
+
+        
+        <button class="btn btn-secondary">Enviar</a>
+    
+    </form>
+    
+    {% endblock %}

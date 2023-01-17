@@ -43,7 +43,14 @@ class Avatarform(forms.Form):
 #MENSAJES
 
 class Mensajesalidaform(forms.Form):
-    receptor=User
-    cuerpo=forms.CharField(label="tu mensaje")
+    receptor=forms.CharField(label="Tu mensaje") #ver de que manera 
+    cuerpo=forms.CharField(label="Tu mensaje")
+    
+    
+
+    class Meta:
+        model=User
+        fields=["receptor", "cuerpo"]
+        help_texts = {k:"" for k in fields}
 
 
