@@ -37,3 +37,13 @@ class Avatarform(forms.Form):
 
 #SUBI IMAGEN DE PERFIL Y ESTOY TRATANDO DE MANDARLA A LA FORM
 
+
+
+
+#MENSAJES
+
+class Mensajesalidaform(forms.Form):
+    receptor=User
+    cuerpo=forms.CharField(label="tu mensaje")
+
+

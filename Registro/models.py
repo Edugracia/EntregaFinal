@@ -24,10 +24,55 @@ class Avatar(models.Model):
         return f"{self.user} - {self.imagen}"
 
 
+#MENSAJERIA
+
+"""class Mensajesalida(models.Model):
+    emisor=models.ForeignKey(User, on_delete=models.CASCADE)#sacarlo de la form
+    receptor=models.ForeignKey(Profile.user, on_delete=models.CASCADE)
+    cuerpo=models.TextField(max_length=250, blank=True, null=True)
+    enviado=models.DateField(auto_now_add=True)
+    #leido=models.BooleanField()
+
+    def __str___(self):
+        return f"{self.emisor}"
+
+class Mensajeentrada(models.Model):
+    receptor=models.ForeignKey(User, on_delete=models.CASCADE)
+    cuerpo=models.TextField(max_length=250, blank=True, null=True)
+    enviado=models.DateField(auto_now_add=True)
+    #leido=models.BooleanField()
+
+    def __str___(self):
+        return f"{self.receptor}"
 
 
-    """class Imagenpost(models.Model):
+class mensaje(models.Model):
+    mensaje= models.ManyToManyField(Mensajesalida),
+    emisor= models.ForeignKey(Emisor, on_delete=models.CASCADE)
+    receptor= models.ForeignKey(Receptor, on_delete=models.CASCADE)
+
+
+
+    class Imagenpost(models.Model):
         imagen=models.ImageField(null=True, blank=True, upload_to="post")
         Pagina=models.ForeignKey(Pagina, on_delete=models.CASCADE)  #IMAGEN DEL POST RELACIONADAS A LAS PAGINAS
-        fecha_imagen=models.DateField(auto_now_add=True, blank=True, null=True)"""
+        fecha_imagen=models.DateField(auto_now_add=True, blank=True, null=True)
 
+class Emisor(models.Model):
+    emisor=models.ForeignKey(User, on_delete=models.CASCADE)
+    #receptor=models.ForeignKey(Profile.user, on_delete=models.CASCADE)
+    cuerpo=models.TextField(max_length=250, blank=True, null=True)
+    enviado=models.DateField(auto_now_add=True)
+    #leido=models.BooleanField()
+
+    def __str___(self):
+        return f"{self.emisor}"
+
+class Receptor(models.Model):
+    receptor=models.ForeignKey(User, on_delete=models.CASCADE)
+    cuerpo=models.TextField(max_length=250, blank=True, null=True)
+    recibido=models.DateField(auto_now_add=True)
+    #leido=models.BooleanField()
+
+    def __str___(self):
+        return f"{self.receptor}"""

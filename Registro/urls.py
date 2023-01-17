@@ -15,6 +15,10 @@ path("editarperfil/", editarperfil, name="editarperfil"),
 path('profile/<pk>', views.profile, name="profile"), #probando esta
 path("agregaravatar/", agregaravatar, name="agregaravatar"),
 
+
+#path("enviarmensaje/", enviarmensaje, name="enviarmensaje"),
+#path("buscarmensaje/", buscarmensaje, name="buscarmensaje"),
+
 ]
 
 #REVISAR PORQUE DESPUES DE LOGEARME ME LLEVA A REGISTRO/LOGUIN Y NI AL INICIO

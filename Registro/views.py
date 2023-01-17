@@ -56,7 +56,7 @@ def login_request(request):
 
 #de momento esta nueva simplificada re va
 #de aca voy a sacar las pass para hacer un modulo nuevo
-@login_required
+"""@login_required
 def editarperfil(request):
     usuario=request.user
     if request.method=="POST":
@@ -71,10 +71,10 @@ def editarperfil(request):
     
     else:
         form=UserEditform(instance=usuario)
-        return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
+        return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})"""
 
 
-"""@login_required
+@login_required
 def editarperfil(request):
     usuario=request.user
     if request.method=="POST":
@@ -88,7 +88,7 @@ def editarperfil(request):
             usuario.password2=informacion["password2"]
             usuario.web_site=informacion["web_site"]
             usuario.descripcion=informacion["descripcion"]
-            
+            usuario.set_password(str(usuario.password1))
             usuario.save()
             
             return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)}) 
@@ -97,7 +97,7 @@ def editarperfil(request):
     
     else:
         form=UserEditform(instance=usuario)
-        return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})"""
+        return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
 
 
 
@@ -158,8 +158,55 @@ def paginadetalle(request, pk):
 	return render(request, 'pagina_detalle.html', context)
 
 
-def profile(request, pk):
+def profile(request, pk):   #ESTA ES LA QUE VA
     user=User.objects.get(id=pk)
-    profile=Profile.objects.filter(user=user).get()
+    profile=Profile.objects.filter(user=user.id).get()
     context={"profile":profile}
     return render(request, "profile_page.html", context)
+
+
+
+
+
+"""def buscarmensaje(request):
+    if "username" in request.GET:
+        return render (request, "busqueda_mensajes.html")
+
+
+def busquedasocios(request):
+    return render(request, "socios.html")
+
+
+
+
+def buscarmensaje(request):
+    
+    receptor= request.GET["receptor"]
+    if receptor != "":
+        mensajeentrada= Mensajeentrada.objects.filter(receptor__icontains=receptor)
+        return render(request, "mensaje_entrada.html", {"mensajeentrada": mensajeentrada})
+    else:
+        return render(request, "inicio.html", {"mensaje": "ingrese receptor"})
+
+
+
+
+
+def enviarmensaje(request):
+    emisor= request.emisor
+    #receptor= request.mensajeentrada.receptor
+    if request.method=="POST":
+        formulario=Mensajesalidaform(request.POST)
+        if formulario.is_valid():            
+            informacion= formulario.cleaned_data
+            #receptor= informacion["receptor"]
+            cuerpo= informacion["cuerpo"]
+            mensajesalida= Mensajesalida(user=emisor, cuerpo=cuerpo)
+            mensajesalida.save()
+            
+            return render(request, "mensaje_salida.html", {"mensajesalida": mensajesalida, f"mensaje": "Mensaje enviado a {receptor}"})
+        else:
+            return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
+    else:
+        formulario=Mensajesalidaform()
+        return render(request, "mensaje_salida.html", {"formulario": formulario})"""
