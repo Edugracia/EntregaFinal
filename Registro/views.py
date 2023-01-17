@@ -54,9 +54,27 @@ def login_request(request):
 
 
 
-
+#de momento esta nueva simplificada re va
 #de aca voy a sacar las pass para hacer un modulo nuevo
 @login_required
+def editarperfil(request):
+    usuario=request.user
+    if request.method=="POST":
+        form=UserEditform(request.POST, instance=usuario)
+        if form.is_valid():
+                        
+            usuario.save()
+            
+            return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)}) 
+        else:
+            return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
+    
+    else:
+        form=UserEditform(instance=usuario)
+        return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
+
+
+"""@login_required
 def editarperfil(request):
     usuario=request.user
     if request.method=="POST":
@@ -79,7 +97,7 @@ def editarperfil(request):
     
     else:
         form=UserEditform(instance=usuario)
-        return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
+        return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})"""
 
 
 
@@ -121,11 +139,27 @@ def agregaravatar(request):
 
 
 class PerfilDetalle(DetailView): 
-    model=User   #Y SI USO EL MODELO USER?
+    model=Profile   #Y SI USO EL MODELO USER?
     template_name="profile_page.html"
 
 
+"""def profile(request, user):
+    user=User.objects.get(id=request.user.id)
+    profile=Profile.objects.filter(user=user).get()
+    context={"profile":profile}
+    return render(request, "profile_page.html", context)"""
 
 
 
 
+def paginadetalle(request, pk):
+	pagina = Pagina.objects.get(id=pk)
+	context = {'pagina':pagina}
+	return render(request, 'pagina_detalle.html', context)
+
+
+def profile(request, pk):
+    user=User.objects.get(id=pk)
+    profile=Profile.objects.filter(user=user).get()
+    context={"profile":profile}
+    return render(request, "profile_page.html", context)

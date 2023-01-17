@@ -16,12 +16,10 @@
 
 <small>
 
-    <p>{{user.first_name}}</p>
-    <p>{{user.last_name}}</p>
-    <p>{{user.email}}</p>
-    <p>{{user.web_site}}</p>
-    <p>{{user.descripcion}}</p>
-
+    <p>Nombre: {{profile.nombre}}</p>
+    <p>Descripcion: {{profile.descripcion|safe}}</p>
+    <p>Email: {{profile.email}}</p>
+    <p>Sitio web: {{profile.web_site}}</p>
 
 
 

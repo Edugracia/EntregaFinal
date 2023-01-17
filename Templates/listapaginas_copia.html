@@ -20,7 +20,7 @@
 <h5>{{ pagina.titulo }}</h5>
 <h1>{{ pagina.user }}</h1>
 
-<a href="{% url 'profile' pagina.user.id %}">{{ pagina.user }}</a> |
+<a href="{% url 'profile' profile.user.id %}">{{ pagina.user }}</a> |
 <a href="{% url 'paginadetalle' pagina.id %}">Leer mas</a>
 
 
@@ -44,3 +44,7 @@
 
 
 {% endblock %}
+
+
+
+<!-- <a href="{% url 'profile' pagina.user.id %}">{{ pagina.user }}</a> |
