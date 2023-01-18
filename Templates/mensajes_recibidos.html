@@ -1,0 +1,27 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block titulo %} 
+
+<title>Mensajes</title>
+
+{% endblock %}
+
+{% block content %}
+
+
+<h1>Mensajes</h1>
+
+
+
+{% for mensaje in mensajes %}
+
+<h1>Mensaje de: {{ mensaje.emisor }}</h1>
+<h1>{{ mensaje.cuerpo }}</h1>
+<h1>Enviado el:{{ mensaje.enviado }}</h1>
+
+
+{% endfor %}
+
+{% endblock %}

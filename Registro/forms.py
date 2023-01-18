@@ -3,6 +3,8 @@ from django.contrib.auth.forms import  UserCreationForm
 from django.contrib.auth.models import User
 from ckeditor.widgets import CKEditorWidget
 
+from .models import Mensaje
+
 class registrousuarioform(UserCreationForm):
     email= forms.EmailField(label="Email")
     password1= forms.CharField(label="Contraseña", widget=forms.PasswordInput)
@@ -42,8 +44,21 @@ class Avatarform(forms.Form):
 
 #MENSAJES
 
-class Mensajesalidaform(forms.Form):
-    receptor=forms.CharField(label="Tu mensaje") #ver de que manera 
+class Mensajeform(forms.Form):
+    receptor=forms.CharField(label="#") #ESTE SERIA EL USERNAME
+    cuerpo=forms.CharField(label="Tu mensaje")
+    
+    
+
+    class Meta:
+        model=Mensaje #y si esto en vez de user es de mensaje
+        fields=["receptor", "cuerpo"]
+        help_texts = {k:"" for k in fields}
+
+
+
+"""class Mensajesalidaform(forms.Form):
+    #receptor=forms.CharField(label="#") #ver de que manera 
     cuerpo=forms.CharField(label="Tu mensaje")
     
     
@@ -51,6 +66,6 @@ class Mensajesalidaform(forms.Form):
     class Meta:
         model=User
         fields=["receptor", "cuerpo"]
-        help_texts = {k:"" for k in fields}
+        help_texts = {k:"" for k in fields}"""
 
 

@@ -26,7 +26,18 @@ class Avatar(models.Model):
 
 #MENSAJERIA
 
-class Mensajeentrada(models.Model): #recibe mensaje
+class Mensaje(models.Model):
+    emisor=models.ForeignKey(User, related_name= "emisor", on_delete=models.CASCADE)
+    receptor=models.ForeignKey(User, related_name= "receptor", on_delete=models.CASCADE)
+    cuerpo=models.TextField(max_length=250, blank=True, null=True)
+    enviado=models.DateField(auto_now_add=True)
+    #leido=models.BooleanField()
+
+    def __str___(self):
+        return f"{self.emisor} - {self.receptor}"
+
+
+"""class Mensajeentrada(models.Model): #recibe mensaje
     receptor=models.ForeignKey(User, on_delete=models.CASCADE)
     cuerpo=models.TextField(max_length=250, blank=True, null=True)
     enviado=models.DateField(auto_now_add=True)
@@ -43,7 +54,7 @@ class Mensajesalida(models.Model): #envia mensaje
     #leido=models.BooleanField()
 
     def __str___(self):
-        return f"{self.emisor} - {self.receptor}"
+        return f"{self.emisor} - {self.receptor}"""
 
 
 

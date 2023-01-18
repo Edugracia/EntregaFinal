@@ -17,6 +17,7 @@ path("agregaravatar/", agregaravatar, name="agregaravatar"),
 
 
 path("enviarmensaje/", enviarmensaje, name="enviarmensaje"),
+path("buscarmensaje/", buscarmensaje, name="buscarmensaje"),
 #path("buscarmensaje/", buscarmensaje, name="buscarmensaje"),
 
 ]

@@ -191,9 +191,9 @@ def buscarmensaje(request):
 
 
 
-@login_required
+"""@login_required
 def enviarmensaje(request):
-    receptor= request.user # aca creo que deberia pedir un receptor, no un emisor
+    emisor= request.user # aca creo que deberia pedir un receptor, no un emisor
     #receptor= request.mensajeentrada.receptor
     if request.method=="POST":
         formulario=Mensajesalidaform(request.POST)
@@ -201,7 +201,7 @@ def enviarmensaje(request):
             informacion= formulario.cleaned_data
             #receptor= informacion["receptor"]
             cuerpo= informacion["cuerpo"]
-            mensajesalida= Mensajesalida(user=receptor, cuerpo=cuerpo)
+            mensajesalida= Mensajesalida(user=emisor, cuerpo=cuerpo)
             mensajesalida.save()
             
             return render(request, "mensaje_salida.html", {"mensajesalida": mensajesalida, f"mensaje": "Mensaje enviado a {receptor}"})
@@ -209,4 +209,34 @@ def enviarmensaje(request):
             return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
     else:
         formulario=Mensajesalidaform()
+        return render(request, "mensaje_salida.html", {"formulario": formulario})"""
+
+
+@login_required
+def enviarmensaje(request):
+    emisor= request.user
+    if request.method=="POST":
+        formulario=Mensajeform(request.POST)
+        if formulario.is_valid():            
+            informacion= formulario.cleaned_data
+            receptor=informacion ["receptor"] #receptor= informacion[receptor.id] #capaz va "receptor"
+            cuerpo= informacion["cuerpo"]
+            mensaje= Mensaje(use=emisor, cuerpo=cuerpo)
+            mensaje.save()
+            
+            return render(request, "inicio.html", {"mensaje": mensaje, f"mensaje": "Mensaje enviado a {receptor}"})
+        else:
+            return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
+    else:
+        formulario=Mensajeform()
         return render(request, "mensaje_salida.html", {"formulario": formulario})
+
+
+
+def buscarmensaje(request):
+    receptor= request.user
+    if receptor != "":
+        mensajes=Mensaje.objects.filter(receptor=receptor.id).get()
+        return render(request, "mensajes_recibidos.html", {"mensajes":mensajes})
+
+
