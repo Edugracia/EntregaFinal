@@ -62,7 +62,7 @@ class Avatarform(forms.Form):
 #MENSAJES
 
 class Mensajeform(forms.Form):
-    receptor=forms.CharField() #ESTE SERIA EL USERNAME
+    #receptor=forms.CharField() #ESTE SERIA EL USERNAME
     cuerpo=forms.CharField(label="Tu mensaje")
     
     

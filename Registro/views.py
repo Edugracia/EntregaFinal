@@ -249,7 +249,7 @@ def enviarmensaje(request):
 
 #probando lista de usuarios para el envio de mensajes
 
-class UserListView(LoginRequiredMixin, generic.ListView):
+class UserListView(LoginRequiredMixin, generic.ListView):  #esto anda toca ver como linkear a la vista enviar mensaje
     model=User
     template_name="lista_usuarios.html"
 
@@ -266,6 +266,47 @@ def buscarmensaje(request):
 
 
 #ACA CAPAZ ESTA BUENO HACER UN LISTADO LINQUEABLE DE LOS USUARIOS COMO CON LA LISTA DE BLOG Y AL INGRESAR TENGAS LA CASILLA MENSAJE
+@login_required  #ACA TENGO QUE PONERLE USERNAME EN ALGUN LADO
+
+def enviarmensaje(request, pk):
+
+    receptor=Mensaje.objects.get(id=pk)
+    if request.method=="POST":
+        formulario=Mensajeform(request.POST)
+        if formulario.is_valid():            
+            informacion= formulario.cleaned_data
+            cuerpo= informacion["cuerpo"]
+            mensaje= Mensaje(receptor=receptor, cuerpo=cuerpo)
+            mensaje.save()
+            
+            return render(request, "inicio.html", {"mensaje": mensaje, f"mensaje": "Mensaje enviado a correctamente"})
+        else:
+            return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
+    else:
+        formulario=Mensajeform()
+        return render(request, "mensaje_salida.html", {"formulario": formulario})
+
+
+
+def paginadetalle(request, pk):
+	pagina = Pagina.objects.get(id=pk)
+	context = {'pagina':pagina}
+	return render(request, 'pagina_detalle.html', context)
+
+
+def profile(request, pk):   
+    user=User.objects.get(id=pk)
+    profile=Profile.objects.filter(user=user.id).get()
+    lista=Avatar.objects.filter(user=user.id)
+    if len(lista)!=0:
+        avatar=lista[0].imagen.url
+    else:
+        avatar="/media/avatars/defaultavatar.jpg"        
+    
+    return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})
+
+
+"""#ACA CAPAZ ESTA BUENO HACER UN LISTADO LINQUEABLE DE LOS USUARIOS COMO CON LA LISTA DE BLOG Y AL INGRESAR TENGAS LA CASILLA MENSAJE
 @login_required  #ACA TENGO QUE PONERLE USERNAME EN ALGUN LADO
 def enviarmensaje(request):
     emisor= request.user.username
@@ -286,6 +327,4 @@ def enviarmensaje(request):
             return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
     else:
         formulario=Mensajeform()
-        return render(request, "mensaje_salida.html", {"formulario": formulario})
-
-
+        return render(request, "mensaje_salida.html", {"formulario": formulario})"""

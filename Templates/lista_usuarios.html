@@ -4,22 +4,27 @@
 
 {% block titulo %} 
 
-<title>Usuarios</title>
+<title>Enviar mensajes</title>
 
 {% endblock %}
 
 {% block content %}
 
 
-<h1>Lista de usarios</h1>
+<h1>Enviar mensajes</h1>
 <br>
 
 {% for user in object_list %}
+<br>
+<h5>{{user.username}}</h5>
 
-<li>{{user.username}}</li>
-
+<a href="{% url 'enviarmensaje' %}">Enviar mensaje</a>  <!-- ACA DEBERIA HABER UN LINK AL ID DEL USUARIO SELECCIONADO Y ESTE LLEVE AL ENVIARMENSAJEFORM -->
+<br>
 
 {% endfor %}
 
 
 {% endblock %}
+
+
+<a href="{% url 'enviarmensaje' mensaje.receptor.id %}">Enviar mensaje</a>
