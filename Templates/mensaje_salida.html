@@ -7,24 +7,27 @@
 
 {% block content %}
 
-<h1>MENSAJE DE {{user.username}} PARA {{receptor.username}}</h1>
-
-
+<h1>MENSAJE DE {{user.username}} Enviar</h1>
 
     <h3 class="mb-5">{{mensaje}}</h3>
+    <br>
+{% for user in users %}
+
+{{user.username}}
+
+{% endfor %}
+
+
+<br>
+<br>
 
     <form action="{% url 'enviarmensaje' %}" method="POST"> {% csrf_token %}
-    
-    
+
         <table>
-            {{formulario.media}}
+
             {{formulario.as_table}}
         
         </table>
-    
-
-
-        
         <button class="btn btn-secondary">Enviar</a>
     
     </form>

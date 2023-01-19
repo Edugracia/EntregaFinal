@@ -4,6 +4,9 @@ from Blog.models import *
 from Registro.forms import *
 from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
 from django.views.generic.detail import DetailView
+from django.views.generic import ListView
+from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.defaults import page_not_found
@@ -75,8 +78,9 @@ def editarperfil(request):
 
 
 @login_required
-def editarperfil(request):
+def editarperfil(request):  #VER TEMA DE LA EDICION DE PERFIL CON LA DE USUARIO
     usuario=request.user
+
     if request.method=="POST":
         form=UserEditform(request.POST)
         if form.is_valid():
@@ -158,13 +162,24 @@ def paginadetalle(request, pk):
 	return render(request, 'pagina_detalle.html', context)
 
 
-def profile(request, pk):   #ESTA ES LA QUE VA
+def profile(request, pk):   
     user=User.objects.get(id=pk)
     profile=Profile.objects.filter(user=user.id).get()
-    context={"profile":profile}
-    return render(request, "profile_page.html", context)
+    lista=Avatar.objects.filter(user=user.id)
+    if len(lista)!=0:
+        avatar=lista[0].imagen.url
+    else:
+        avatar="/media/avatars/defaultavatar.jpg"        
+    
+    return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})
 
 
+
+"""def profile(request, pk):   #ESTA ES LA QUE VA
+    user=User.objects.get(id=pk)
+    profile=Profile.objects.filter(user=user.id).get()
+    
+    return render(request, "profile_page.html", {"profile":profile})"""
 
 
 
@@ -209,10 +224,10 @@ def enviarmensaje(request):
             return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
     else:
         formulario=Mensajesalidaform()
-        return render(request, "mensaje_salida.html", {"formulario": formulario})"""
+        return render(request, "mensaje_salida.html", {"formulario": formulario})
 
 
-@login_required
+@login_required  #ACA TENGO QUE PONERLE USERNAME EN ALGUN LADO
 def enviarmensaje(request):
     emisor= request.user
     if request.method=="POST":
@@ -221,7 +236,49 @@ def enviarmensaje(request):
             informacion= formulario.cleaned_data
             receptor=informacion ["receptor"] #receptor= informacion[receptor.id] #capaz va "receptor"
             cuerpo= informacion["cuerpo"]
-            mensaje= Mensaje(use=emisor, cuerpo=cuerpo)
+            mensaje= Mensaje(user=emisor, cuerpo=cuerpo)
+            mensaje.save()
+            
+            return render(request, "inicio.html", {"mensaje": mensaje, f"mensaje": "Mensaje enviado a {receptor}"})
+        else:
+            return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
+    else:
+        formulario=Mensajeform()
+        return render(request, "mensaje_salida.html", {"formulario": formulario})"""
+
+
+#probando lista de usuarios para el envio de mensajes
+
+class UserListView(LoginRequiredMixin, generic.ListView):
+    model=User
+    template_name="lista_usuarios.html"
+
+"""def leerusuarios(request):  #ME TIRA UNA LISTA VACIA
+    usuarios=User.objects.all()
+    return render(request, "lista_usuarios.html", {"usuarios":usuarios})"""
+
+def buscarmensaje(request):
+    receptor= request.user
+    if receptor != "":
+        mensajes=Mensaje.objects.filter(receptor=receptor.id).get()
+        return render(request, "mensajes_recibidos.html", {"mensajes":mensajes})
+
+
+
+#ACA CAPAZ ESTA BUENO HACER UN LISTADO LINQUEABLE DE LOS USUARIOS COMO CON LA LISTA DE BLOG Y AL INGRESAR TENGAS LA CASILLA MENSAJE
+@login_required  #ACA TENGO QUE PONERLE USERNAME EN ALGUN LADO
+def enviarmensaje(request):
+    emisor= request.user.username
+    
+    if request.method=="POST":
+        formulario=Mensajeform(request.POST)
+        if formulario.is_valid():            
+            informacion= formulario.cleaned_data
+            emisor=informacion
+            receptor= request.user.username #receptor= informacion[receptor.id] #capaz va "receptor"
+            receptor= informacion["receptor"]
+            cuerpo= informacion["cuerpo"]
+            mensaje= Mensaje(receptor=request.user.username, cuerpo=cuerpo)
             mensaje.save()
             
             return render(request, "inicio.html", {"mensaje": mensaje, f"mensaje": "Mensaje enviado a {receptor}"})
@@ -230,13 +287,5 @@ def enviarmensaje(request):
     else:
         formulario=Mensajeform()
         return render(request, "mensaje_salida.html", {"formulario": formulario})
-
-
-
-def buscarmensaje(request):
-    receptor= request.user
-    if receptor != "":
-        mensajes=Mensaje.objects.filter(receptor=receptor.id).get()
-        return render(request, "mensajes_recibidos.html", {"mensajes":mensajes})
 
 
