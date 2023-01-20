@@ -57,6 +57,10 @@ def login_request(request):
 
 
 
+
+
+
+
 @login_required
 def editarperfil(request):   #ESTA ANDA VOY A PROBAR OTRA ARRIBA A VER SI CONSIGO QUE MEUSTRE LOS DATOS A EDITAR   #VER TEMA DE LA EDICION DE PERFIL CON LA DE USUARIO 
     usuario=request.user
@@ -141,12 +145,16 @@ def profile(request, pk):
 
 
 
+
+
+#MENSAJERIA
+
 @login_required
 def buscarmensaje(request):
     receptor= request.user
     if receptor != "":
         mensajes=Mensaje.objects.filter(receptor=receptor)
-        return render(request, "mensajes_recibidos.html", {"mensajes":mensajes}) #poner un else diciendo que no tiene mensajes"
+        return render(request, "mensajes_recibidos.html", {"mensajes":mensajes})
 
 
 

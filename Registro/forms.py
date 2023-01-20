@@ -70,7 +70,6 @@ class Avatarform(forms.Form):
 
 
 class MensajeForm(forms.Form):
-    #emisor = forms.ModelChoiceField(queryset=User.objects.filter() ,label="emisor")
     receptor = forms.ModelChoiceField(queryset=User.objects.all() ,label="Receptor")
     cuerpo = forms.CharField(label="Mensaje ")
 
