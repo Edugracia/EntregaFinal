@@ -164,7 +164,7 @@ def paginadetalle(request, pk):
 
 def profile(request, pk):   
     user=User.objects.get(id=pk)
-    profile=Profile.objects.filter(user=user.id).get()
+    profile=Profile.objects.filter(user=user.id).get() #estoy pidiendo todos los objetos de profile de este user
     lista=Avatar.objects.filter(user=user.id)
     if len(lista)!=0:
         avatar=lista[0].imagen.url
@@ -265,16 +265,15 @@ def buscarmensaje(request):
 
 
 
-#ACA CAPAZ ESTA BUENO HACER UN LISTADO LINQUEABLE DE LOS USUARIOS COMO CON LA LISTA DE BLOG Y AL INGRESAR TENGAS LA CASILLA MENSAJE
+"""#ACA CAPAZ ESTA BUENO HACER UN LISTADO LINQUEABLE DE LOS USUARIOS COMO CON LA LISTA DE BLOG Y AL INGRESAR TENGAS LA CASILLA MENSAJE
 @login_required  #ACA TENGO QUE PONERLE USERNAME EN ALGUN LADO
-
 def enviarmensaje(request, pk):
-
-    receptor=Mensaje.objects.get(id=pk)
+    #emisor= request.user
     if request.method=="POST":
         formulario=Mensajeform(request.POST)
         if formulario.is_valid():            
             informacion= formulario.cleaned_data
+            receptor=Mensaje.objects.get(id=pk)
             cuerpo= informacion["cuerpo"]
             mensaje= Mensaje(receptor=receptor, cuerpo=cuerpo)
             mensaje.save()
@@ -284,47 +283,27 @@ def enviarmensaje(request, pk):
             return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
     else:
         formulario=Mensajeform()
-        return render(request, "mensaje_salida.html", {"formulario": formulario})
+        return render(request, "mensaje_salida.html", {"formulario": formulario})"""
 
 
 
-def paginadetalle(request, pk):
-	pagina = Pagina.objects.get(id=pk)
-	context = {'pagina':pagina}
-	return render(request, 'pagina_detalle.html', context)
 
 
-def profile(request, pk):   
-    user=User.objects.get(id=pk)
-    profile=Profile.objects.filter(user=user.id).get()
-    lista=Avatar.objects.filter(user=user.id)
-    if len(lista)!=0:
-        avatar=lista[0].imagen.url
-    else:
-        avatar="/media/avatars/defaultavatar.jpg"        
-    
-    return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})
 
-
-"""#ACA CAPAZ ESTA BUENO HACER UN LISTADO LINQUEABLE DE LOS USUARIOS COMO CON LA LISTA DE BLOG Y AL INGRESAR TENGAS LA CASILLA MENSAJE
-@login_required  #ACA TENGO QUE PONERLE USERNAME EN ALGUN LADO
-def enviarmensaje(request):
-    emisor= request.user.username
-    
+def enviarmensaje(request, id): #si me llamas a enviarmensaje con un 3 traeme de la base todo receptor que su id sea 3
     if request.method=="POST":
-        formulario=Mensajeform(request.POST)
-        if formulario.is_valid():            
-            informacion= formulario.cleaned_data
-            emisor=informacion
-            receptor= request.user.username #receptor= informacion[receptor.id] #capaz va "receptor"
-            receptor= informacion["receptor"]
-            cuerpo= informacion["cuerpo"]
-            mensaje= Mensaje(receptor=request.user.username, cuerpo=cuerpo)
+        emisor=request.user
+        receptor=User.objects.get(id=id) 
+        #para que haya un receptor, primero tiene que haber un mensaje
+        formulario= Mensajeform(request.POST)
+        if formulario.is_valid():
+            informacion=formulario.cleaned_data
+            cuerpo=informacion["cuerpo"]
+            mensaje=Mensaje(emisor=emisor, receptor=receptor, cuerpo=cuerpo)
             mensaje.save()
-            
-            return render(request, "inicio.html", {"mensaje": mensaje, f"mensaje": "Mensaje enviado a {receptor}"})
+            return render(request, "inicio.html", {"mensaje": "memsaje guardado"})
         else:
-            return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
+            return render(request, "mensaje_salida.html", {"mensaje": "Informacion no Valida"})
     else:
         formulario=Mensajeform()
-        return render(request, "mensaje_salida.html", {"formulario": formulario})"""
+        return render(request, "mensaje_salida.html", {"formulario": formulario})

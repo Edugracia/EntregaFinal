@@ -17,7 +17,7 @@ path("agregaravatar/", agregaravatar, name="agregaravatar"),
 
 path("leerusuarios/", views.UserListView.as_view(), name="leerusuarios"),
 #path('leerusuarios/', views.leerusuarios, name="leerusuarios"),
-path("enviarmensaje/", enviarmensaje, name="enviarmensaje"), #aca faltaria <pk>
+path("enviarmensaje/<id>", enviarmensaje, name="enviarmensaje"), 
 path("buscarmensaje/", buscarmensaje, name="buscarmensaje"),
 #path("buscarmensaje/", buscarmensaje, name="buscarmensaje"),
 
