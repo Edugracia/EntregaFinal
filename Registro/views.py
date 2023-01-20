@@ -17,8 +17,8 @@ def inicio(request):
         return render (request, "inicio.html")
 
 
+#registro y loguin
 
-#CREAR USUARIO TMB LLEVA A REGISTRO Y NO AL INICIO
 def registro(request):
     if request.method=="POST":
         form=registrousuarioform(request.POST)
@@ -59,10 +59,10 @@ def login_request(request):
 
 
 
-
+#PERFILES
 
 @login_required
-def editarperfil(request):   #ESTA ANDA VOY A PROBAR OTRA ARRIBA A VER SI CONSIGO QUE MEUSTRE LOS DATOS A EDITAR   #VER TEMA DE LA EDICION DE PERFIL CON LA DE USUARIO 
+def editarperfil(request): 
     usuario=request.user
 
     if request.method=="POST":
@@ -120,12 +120,6 @@ def agregaravatar(request):
 
 
 
-"""class PerfilDetalle(DetailView): 
-    model=Profile   #Y SI USO EL MODELO USER?
-    template_name="profile_page.html"""
-
-
-
 def paginadetalle(request, pk):
 	pagina = Pagina.objects.get(id=pk)
 	context = {'pagina':pagina}
@@ -142,8 +136,6 @@ def profile(request, pk):
         avatar="/media/avatars/defaultavatar.jpg"        
     
     return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})
-
-
 
 
 
