@@ -222,7 +222,7 @@ def buscarmensaje(request):  #creo ya anda piola
 def buscarmensaje(request):
     receptor= request.user
     if receptor != "":
-        mensajes=Mensaje.objects.filter(receptor=receptor) 
+        mensajes=Mensaje.objects.filter(receptor=receptor)
         return render(request, "mensajes_recibidos.html", {"mensajes":mensajes}) #poner un else diciendo que no tiene mensajes"
 
 
