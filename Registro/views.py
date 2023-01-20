@@ -95,7 +95,7 @@ def editarperfil(request):  #VER TEMA DE LA EDICION DE PERFIL CON LA DE USUARIO
             usuario.set_password(str(usuario.password1))
             usuario.save()
             
-            return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)}) 
+            return render(request, "profile_page.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)}) 
         else:
             return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
     
@@ -105,7 +105,36 @@ def editarperfil(request):  #VER TEMA DE LA EDICION DE PERFIL CON LA DE USUARIO
 
 
 
+#ESTA ANDA VOY A PROBAR OTRA ARRIBA A VER SI CONSIGO QUE MEUSTRE LOS DATOS A EDITAR
 
+"""@login_required
+def editarperfil(request):  #VER TEMA DE LA EDICION DE PERFIL CON LA DE USUARIO
+    usuario=request.user
+
+    if request.method=="POST":
+        form=UserEditform(request.POST)
+        if form.is_valid():
+            informacion=form.cleaned_data
+            usuario.first_name=informacion["first_name"]
+            usuario.last_name=informacion["last_name"]
+            usuario.email=informacion["email"]
+            usuario.password1=informacion["password1"]
+            usuario.password2=informacion["password2"]
+            usuario.web_site=informacion["web_site"]
+            usuario.descripcion=informacion["descripcion"]
+            usuario.set_password(str(usuario.password1))
+            usuario.save()
+            
+            return render(request, "profile_page.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)}) 
+        else:
+            return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
+    
+    else:
+        form=UserEditform(instance=usuario)
+        return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
+"""
+
+@login_required
 def obteneravatar(request):
     lista=Avatar.objects.filter(user=request.user)
     if len(lista)!=0:
@@ -136,23 +165,12 @@ def agregaravatar(request):
 
 
 
-"""def paginaperfil(request, pk):
-	perfil = Pagina.usuario.get(id=pk)
-	context = {'perfil':perfil}
-	return render(request, 'profile_page.html', context)"""
+
 
 
 class PerfilDetalle(DetailView): 
     model=Profile   #Y SI USO EL MODELO USER?
     template_name="profile_page.html"
-
-
-"""def profile(request, user):
-    user=User.objects.get(id=request.user.id)
-    profile=Profile.objects.filter(user=user).get()
-    context={"profile":profile}
-    return render(request, "profile_page.html", context)"""
-
 
 
 
@@ -183,117 +201,57 @@ def profile(request, pk):
 
 
 
-"""def buscarmensaje(request):
-    if "username" in request.GET:
-        return render (request, "busqueda_mensajes.html")
+#probando lista de usuarios para el envio de mensajes
 
-
-def busquedasocios(request):
-    return render(request, "socios.html")
-
-
-
-
-def buscarmensaje(request):
-    
-    receptor= request.GET["receptor"]
-    if receptor != "":
-        mensajeentrada= Mensajeentrada.objects.filter(receptor__icontains=receptor)
-        return render(request, "mensaje_entrada.html", {"mensajeentrada": mensajeentrada})
-    else:
-        return render(request, "inicio.html", {"mensaje": "ingrese receptor"})"""
-
+"""class UserListView(LoginRequiredMixin, generic.ListView):  #esto anda toca ver como linkear a la vista enviar mensaje
+    model=User
+    template_name="lista_usuarios.html"""
 
 
 
 """@login_required
-def enviarmensaje(request):
-    emisor= request.user # aca creo que deberia pedir un receptor, no un emisor
-    #receptor= request.mensajeentrada.receptor
-    if request.method=="POST":
-        formulario=Mensajesalidaform(request.POST)
-        if formulario.is_valid():            
-            informacion= formulario.cleaned_data
-            #receptor= informacion["receptor"]
-            cuerpo= informacion["cuerpo"]
-            mensajesalida= Mensajesalida(user=emisor, cuerpo=cuerpo)
-            mensajesalida.save()
-            
-            return render(request, "mensaje_salida.html", {"mensajesalida": mensajesalida, f"mensaje": "Mensaje enviado a {receptor}"})
-        else:
-            return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
-    else:
-        formulario=Mensajesalidaform()
-        return render(request, "mensaje_salida.html", {"formulario": formulario})
+def buscarmensaje(request):  #creo ya anda piola
+    receptor= request.user
+    if receptor != "":
+        mensajes=Mensaje.objects.filter(receptor=receptor) #aca hay que filtrar por receptor
+        return render(request, "mensajes_recibidos.html", {"mensajes":mensajes}) #poner un else diciendo que no tiene mensajes"""
 
 
-@login_required  #ACA TENGO QUE PONERLE USERNAME EN ALGUN LADO
-def enviarmensaje(request):
-    emisor= request.user
-    if request.method=="POST":
-        formulario=Mensajeform(request.POST)
-        if formulario.is_valid():            
-            informacion= formulario.cleaned_data
-            receptor=informacion ["receptor"] #receptor= informacion[receptor.id] #capaz va "receptor"
-            cuerpo= informacion["cuerpo"]
-            mensaje= Mensaje(user=emisor, cuerpo=cuerpo)
-            mensaje.save()
-            
-            return render(request, "inicio.html", {"mensaje": mensaje, f"mensaje": "Mensaje enviado a {receptor}"})
-        else:
-            return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
-    else:
-        formulario=Mensajeform()
-        return render(request, "mensaje_salida.html", {"formulario": formulario})"""
 
-
-#probando lista de usuarios para el envio de mensajes
-
-class UserListView(LoginRequiredMixin, generic.ListView):  #esto anda toca ver como linkear a la vista enviar mensaje
-    model=User
-    template_name="lista_usuarios.html"
-
-"""def leerusuarios(request):  #ME TIRA UNA LISTA VACIA
-    usuarios=User.objects.all()
-    return render(request, "lista_usuarios.html", {"usuarios":usuarios})"""
-
+@login_required
 def buscarmensaje(request):
     receptor= request.user
     if receptor != "":
-        mensajes=Mensaje.objects.filter(receptor=receptor.id).get()
-        return render(request, "mensajes_recibidos.html", {"mensajes":mensajes})
+        mensajes=Mensaje.objects.filter(receptor=receptor) 
+        return render(request, "mensajes_recibidos.html", {"mensajes":mensajes}) #poner un else diciendo que no tiene mensajes"
 
 
 
-"""#ACA CAPAZ ESTA BUENO HACER UN LISTADO LINQUEABLE DE LOS USUARIOS COMO CON LA LISTA DE BLOG Y AL INGRESAR TENGAS LA CASILLA MENSAJE
-@login_required  #ACA TENGO QUE PONERLE USERNAME EN ALGUN LADO
-def enviarmensaje(request, pk):
-    #emisor= request.user
+
+
+@login_required
+def enviarmensaje(request):
     if request.method=="POST":
-        formulario=Mensajeform(request.POST)
-        if formulario.is_valid():            
-            informacion= formulario.cleaned_data
-            receptor=Mensaje.objects.get(id=pk)
+        form= MensajeForm(request.POST)
+        if form.is_valid():
+            informacion= form.cleaned_data
+            emisor= informacion["emisor"]
+            receptor= informacion["receptor"]
             cuerpo= informacion["cuerpo"]
-            mensaje= Mensaje(receptor=receptor, cuerpo=cuerpo)
+            mensaje= Mensaje(emisor=emisor, receptor=receptor, cuerpo=cuerpo)
             mensaje.save()
-            
-            return render(request, "inicio.html", {"mensaje": mensaje, f"mensaje": "Mensaje enviado a correctamente"})
+            return render(request, "mensaje_salida.html", {"mensaje": "Mensaje enviado"})
         else:
-            return render(request, "mensaje_entrada.html", {"mensaje": "Informacion no Valida"})
+            return render(request, "mensaje_salida.html", {"mensaje": "Informacion no Valida"})
     else:
-        formulario=Mensajeform()
-        return render(request, "mensaje_salida.html", {"formulario": formulario})"""
+        formulario= MensajeForm()
+        return render(request, "mensaje_salida.html", {"form": formulario})
 
 
-
-
-
-
-def enviarmensaje(request, id): #si me llamas a enviarmensaje con un 3 traeme de la base todo receptor que su id sea 3
+"""def enviarmensaje(request, id): #si me llamas a enviarmensaje con un 3 traeme de la base todo receptor que su id sea 3
     if request.method=="POST":
         emisor=request.user
-        receptor=User.objects.get(id=id) 
+        receptor=User.objects.get(id=id) #aca cambie por id y me lo mando ami mismo #revisar a ver si no hay que filtrar como con buscarmensaje
         #para que haya un receptor, primero tiene que haber un mensaje
         formulario= Mensajeform(request.POST)
         if formulario.is_valid():
@@ -301,9 +259,9 @@ def enviarmensaje(request, id): #si me llamas a enviarmensaje con un 3 traeme de
             cuerpo=informacion["cuerpo"]
             mensaje=Mensaje(emisor=emisor, receptor=receptor, cuerpo=cuerpo)
             mensaje.save()
-            return render(request, "inicio.html", {"mensaje": "memsaje guardado"})
+            return render(request, "mensaje_salida.html", {"mensaje": f"Mensaje enviado a {receptor} correctamente"})
         else:
             return render(request, "mensaje_salida.html", {"mensaje": "Informacion no Valida"})
     else:
         formulario=Mensajeform()
-        return render(request, "mensaje_salida.html", {"formulario": formulario})
+        return render(request, "mensaje_salida.html", {"formulario": formulario})"""

@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<h1>Enviando a: {{mensaje.receptor}}</h1>
+<h1>Enviando a: {{user.id}}</h1>
 
     <h3 class="mb-5">{{mensaje}}</h3>
     <br>
@@ -15,15 +15,17 @@
 <br>
 <br>
 
-    <form action="{% url 'enviarmensaje' user.id %}" method="POST"> {% csrf_token %}
+    <form action="{% url 'enviarmensaje' %}" method="POST"> {% csrf_token %}  <!-- SI LE PONGO USER ME LO MANDA AMI -->
 
         <table>
 
-            {{formulario.as_table}}
+            {{form.as_table}}
         
         </table>
         <button class="btn btn-secondary">Enviar</a>
-    
+
+
     </form>
     
     {% endblock %}
+    

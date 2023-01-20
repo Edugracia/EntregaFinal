@@ -13,15 +13,29 @@
 
 <h1>Mensajes</h1>
 
+<h1>{{ mensaje }}</h1>
 
+<br>
+<br>
 
-{% for mensaje in mensajes %}
+{% if mensaje %}
 
-<h1>Mensaje de: {{ mensaje.emisor }}</h1>
-<h1>{{ mensaje.cuerpo }}</h1>
-<h1>Enviado el:{{ mensaje.enviado }}</h1>
+<small>
+    {% for mensaje in mensajes %}
+    <p>-------------------</p>
+    <h6>Enviado por: {{mensaje.emisor}}</h6>
 
+    <p>{{mensaje.cuerpo}}</p>
+    <p>Enviado el: {{mensaje.enviado}}</p>
+    {% endfor %}
+</small>
 
-{% endfor %}
+{% else %}
+
+<h3>No tiene mensajes para mostrar</h3>
+
+{% endif %}
 
 {% endblock %}
+
+

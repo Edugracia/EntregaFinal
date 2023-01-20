@@ -15,11 +15,11 @@ path("editarperfil/", editarperfil, name="editarperfil"),
 path('profile/<pk>', views.profile, name="profile"), #probando esta
 path("agregaravatar/", agregaravatar, name="agregaravatar"),
 
-path("leerusuarios/", views.UserListView.as_view(), name="leerusuarios"),
+#path("leerusuarios/", views.UserListView.as_view(), name="leerusuarios"),
 #path('leerusuarios/', views.leerusuarios, name="leerusuarios"),
-path("enviarmensaje/<id>", enviarmensaje, name="enviarmensaje"), 
+path("enviarmensaje/", enviarmensaje, name="enviarmensaje"), 
 path("buscarmensaje/", buscarmensaje, name="buscarmensaje"),
-#path("buscarmensaje/", buscarmensaje, name="buscarmensaje"),
+
 
 ]
 

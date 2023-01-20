@@ -23,7 +23,7 @@ class UserEditform(UserCreationForm): #PROFILE EDIT FORM?????? la profile que tr
     email= forms.EmailField(label="Email")
     password1= forms.CharField(label="Contraseña", widget=forms.PasswordInput)
     password2= forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput)
-    web_site=forms.URLField(max_length=100)
+    web_site=forms.CharField(max_length=100)
     descripcion = forms.CharField(widget=CKEditorWidget())
 
 
@@ -61,16 +61,25 @@ class Avatarform(forms.Form):
 
 #MENSAJES
 
-class Mensajeform(forms.Form):
+"""class Mensajeform(forms.Form):
     #receptor=forms.CharField() #ESTE SERIA EL USERNAME
-    cuerpo=forms.CharField(label="Tu mensaje")
+    cuerpo=forms.CharField(label="Mensaje")
     
     
 
     class Meta:
         model=Mensaje #y si esto en vez de user es de mensaje?
         fields=["receptor", "cuerpo"]
-        help_texts = {k:"" for k in fields}
+        help_texts = {k:"" for k in fields}"""
+
+
+
+class MensajeForm(forms.Form):
+    emisor = forms.ModelChoiceField(queryset=User.objects.filter() ,label="emisor")
+    receptor = forms.ModelChoiceField(queryset=User.objects.all() ,label="receptor")
+    cuerpo = forms.CharField(label="cuerpo")
+
+
 
 
 
