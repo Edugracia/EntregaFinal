@@ -54,11 +54,6 @@ class Avatarform(forms.Form):
     imagen=forms.ImageField(label="Imagen")
 
 
-#SUBI IMAGEN DE PERFIL Y ESTOY TRATANDO DE MANDARLA A LA FORM
-
-
-
-
 #MENSAJES
 
 """class Mensajeform(forms.Form):
@@ -75,9 +70,9 @@ class Avatarform(forms.Form):
 
 
 class MensajeForm(forms.Form):
-    emisor = forms.ModelChoiceField(queryset=User.objects.filter() ,label="emisor")
-    receptor = forms.ModelChoiceField(queryset=User.objects.all() ,label="receptor")
-    cuerpo = forms.CharField(label="cuerpo")
+    #emisor = forms.ModelChoiceField(queryset=User.objects.filter() ,label="emisor")
+    receptor = forms.ModelChoiceField(queryset=User.objects.all() ,label="Receptor")
+    cuerpo = forms.CharField(label="Mensaje ")
 
 
 
