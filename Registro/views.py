@@ -112,7 +112,7 @@ def editarcuenta(request):
             usuario.set_password(str(usuario.password1))
             usuario.save()
             
-            return render(request, "ingresar.html", {"mensaje":f"Usuario {usuario.username} editado correctamente"})            
+            return render(request, "ingresar.html", {"mensaje":f"{usuario.username} editado correctamente", "form":AuthenticationForm(request, data=request.POST)})       
         else:
             return render(request, "editar_cuenta.html", {"form":form, "nombreusuario":usuario.username})
     
@@ -124,11 +124,6 @@ def editarcuenta(request):
 
 
 #EDICION PROFILE
-
-
-
-
-
 
 @login_required  
 def editarperfil(request): #esta queda en hold hasta probar una vista basa en clase
