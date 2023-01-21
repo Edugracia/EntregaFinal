@@ -16,6 +16,9 @@ class nuevopostform(forms.Form):
         fields=["titulo", "subtitulo", "imagen", "cuerpo"]
         help_texts = {k:"" for k in fields}
 
+
+
+
 class Imagenpaginaform(forms.Form):
     imagenpagina=forms.ImageField(label="Imagen")
     

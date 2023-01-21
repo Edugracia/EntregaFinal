@@ -3,8 +3,6 @@ from .models import *
 
 admin.site.register(Profile)
 admin.site.register(Avatar)
-#admin.site.register(Mensajesalida)
-#admin.site.register(Mensajeentrada)
 admin.site.register(Mensaje)
 
 

@@ -24,7 +24,7 @@ def sobremi(request):
 
 
 
-#registro y loguin
+#registro y login
 
 def registro(request):
     if request.method=="POST":
@@ -68,34 +68,6 @@ def login_request(request):
 
 #PERFILES
 
-"""@login_required  #esta es la que va y no se toca
-def editarperfil(request): 
-    usuario=request.user
-
-    if request.method=="POST":
-        form=UserEditform(request.POST)
-        if form.is_valid():
-            informacion=form.cleaned_data
-            usuario.first_name=informacion["first_name"]
-            usuario.last_name=informacion["last_name"]
-            usuario.email=informacion["email"]
-            usuario.password1=informacion["password1"]
-            usuario.password2=informacion["password2"]
-            usuario.web_site=informacion["web_site"]
-            usuario.descripcion=informacion["descripcion"]
-            usuario.set_password(str(usuario.password1))
-            usuario.save()
-            
-            return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)}) #SACO PROFILE PAGE PORQUE LUEGO DE CREARLO OLO DEVUELVE PERO SIN DATOS
-        else:
-            return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
-    
-    else:
-        form=UserEditform(instance=usuario)
-        return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})"""
-
-
-
 #EDICION USUARIO
 @login_required
 def editarcuenta(request): 
@@ -126,7 +98,7 @@ def editarcuenta(request):
 #EDICION PROFILE
 
 @login_required  
-def editarperfil(request): #esta queda en hold hasta probar una vista basa en clase
+def editarperfil(request): 
     usu=request.user
     profile=Profile.objects.filter(user=usu.id).get()
     if request.method=="POST":
@@ -144,20 +116,6 @@ def editarperfil(request): #esta queda en hold hasta probar una vista basa en cl
     else:
         form=ProfileEditform(initial={"nombre":profile.nombre, "email":profile.email, "web_site":profile.web_site, "descripcion":profile.descripcion})
         return render(request, "editar_perfil.html", {"form":form, "profile":profile, "avatar": obteneravatar(request)})
-
-
-"""def profile(request, pk):     #EN ESTA VIEW ESTOY MOSTRANDO EL PROFILE
-    user=User.objects.get(id=pk)
-    profile=Profile.objects.filter(user=user.id).get() #estoy pidiendo todos los objetos de profile de este user
-    lista=Avatar.objects.filter(user=user.id)
-    if len(lista)!=0:
-        avatar=lista[0].imagen.url
-    else:
-        avatar="/media/avatars/defaultavatar.jpg"        
-    
-    return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})
-"""
-
 
 
 
@@ -199,9 +157,9 @@ def paginadetalle(request, pk):
 	return render(request, 'pagina_detalle.html', context)
 
 
-def profile(request, pk):     #EN ESTA VIEW ESTOY MOSTRANDO EL PROFILE
+def profile(request, pk):     
     user=User.objects.get(id=pk)
-    profile=Profile.objects.filter(user=user.id).get() #estoy pidiendo todos los objetos de profile de este user
+    profile=Profile.objects.filter(user=user.id).get()
     lista=Avatar.objects.filter(user=user.id)
     if len(lista)!=0:
         avatar=lista[0].imagen.url
@@ -220,7 +178,6 @@ def buscarmensaje(request):
     if receptor != "":
         mensajes=Mensaje.objects.filter(receptor=receptor)
         return render(request, "mensajes_recibidos.html", {"mensajes":mensajes})
-
 
 
 

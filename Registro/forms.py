@@ -17,7 +17,7 @@ class registrousuarioform(UserCreationForm):
 
 
 
-class UserEditform(UserCreationForm): #PROFILE EDIT FORM?????? la profile que trae de la page list es la data del profile pero de la que se carga en la form
+class UserEditform(UserCreationForm): 
     first_name=forms.CharField(label="Nombre")
     last_name=forms.CharField(label="Apellido")
     email= forms.EmailField(label="Email")
@@ -45,8 +45,6 @@ class ProfileEditform(forms.Form):
     web_site=forms.CharField(max_length=100)
     descripcion = forms.CharField(widget=CKEditorWidget())
 
-
-#MENSAJES
 
 
 class MensajeForm(forms.Form):

@@ -77,10 +77,9 @@ class PaginaList(ListView):
     ordering= ["-fecha_posteo"]
 
 
-
 def leerpaginas(request):
     paginas=Pagina.objects.all()
-    return render(request, "listapaginas_copia.html", {"paginas":paginas})  #probando cambio, la comentada de abajo era la anteior
+    return render(request, "listapaginas_copia.html", {"paginas":paginas}) 
 
 
 
