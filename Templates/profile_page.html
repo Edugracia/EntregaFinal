@@ -7,8 +7,8 @@
 
 {% block content %}
 
-{{ mensaje }}
-
+<h3>{{ mensaje }}</h3>
+<br/>
 <br/>
 <img class="img-fluid rounded-circle mb-2" src="{{ avatar }}" alt="...">
 <br/>
@@ -27,7 +27,7 @@
 <a class="btn btn-success" href="{% url 'editarperfil' %}">Editar perfil</a>  
 {% endif %}
 
-<a class="btn btn-secondary" href="{% url 'leerpaginas' %}">Volver</a>
+<a class="btn btn-secondary" href="{% url 'inicio' %}">Volver</a>
 
 
 

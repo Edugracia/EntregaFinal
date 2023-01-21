@@ -19,11 +19,11 @@
 
     <h3 class="mb-5">{{mensaje}}</h3>
 
-    <form action="{% url 'editarperfil' %}" method="POST"> {% csrf_token %} <!-- DE ACA SAQUE ESTO {% url 'editarperfil' %} -->
+    <form action="{% url 'editarperfil' %}" method="POST"> {% csrf_token %}
     
     
         <table>
-            
+            {{form.media}}
             {{form.as_table}}
         
         </table>

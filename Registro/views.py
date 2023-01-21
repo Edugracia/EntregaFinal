@@ -144,14 +144,14 @@ def editarperfil(request): #esta queda en hold hasta probar una vista basa en cl
             profile.descripcion=informacion["descripcion"]
             profile.save()
             
-            return render(request, "inicio.html", {"mensaje":f"Usuario {usu.username} editado correctamente"})
+            return render(request, "profile_page.html", {"mensaje":f"{usu.username} editado correctamente", "profile":profile, "avatar": obteneravatar(request)})
         
     else:
         form=ProfileEditform(initial={"nombre":profile.nombre, "email":profile.email, "web_site":profile.web_site, "descripcion":profile.descripcion})
-        return render(request, "editar_perfil.html", {"form":form, "profile":profile})
+        return render(request, "editar_perfil.html", {"form":form, "profile":profile, "avatar": obteneravatar(request)})
 
 
-def profile(request, pk):     #EN ESTA VIEW ESTOY MOSTRANDO EL PROFILE
+"""def profile(request, pk):     #EN ESTA VIEW ESTOY MOSTRANDO EL PROFILE
     user=User.objects.get(id=pk)
     profile=Profile.objects.filter(user=user.id).get() #estoy pidiendo todos los objetos de profile de este user
     lista=Avatar.objects.filter(user=user.id)
@@ -161,7 +161,7 @@ def profile(request, pk):     #EN ESTA VIEW ESTOY MOSTRANDO EL PROFILE
         avatar="/media/avatars/defaultavatar.jpg"        
     
     return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})
-
+"""
 
 
 
