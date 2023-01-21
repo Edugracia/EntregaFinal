@@ -1,0 +1,30 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block titulo %} 
+
+<title>Enviar mensajes</title>
+
+{% endblock %}
+
+{% block content %}
+
+
+<h1>Enviar mensajes</h1>
+<br>
+
+{% for user in object_list %}
+<br>
+<h5>{{user.username}}</h5>
+
+<a href="{% url 'enviarmensaje' user.id %}">Enviar mensaje</a>  <!-- creo que el problema esta aca mee sta llevando a mi usuario logueado -->
+<br>
+
+{% endfor %}
+
+
+{% endblock %}
+
+
+<a href="{% url 'enviarmensaje' mensaje.receptor.id %}">Enviar mensaje</a>

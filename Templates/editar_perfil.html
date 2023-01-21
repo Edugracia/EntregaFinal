@@ -1,0 +1,38 @@
+{% extends "padre.html" %}
+
+
+{% block titulo %} 
+<title>Editar perfil</title>
+{% endblock %}
+
+{% block content %}
+
+<h1>Editando {{user.username}}</h1>
+
+
+<img class="img-fluid rounded-circle mb-2" src="{{ avatar }}" alt="...">
+<br/>
+<br/>
+<a class="btn btn-secondary" href="{% url 'agregaravatar'%}">Editar avatar</a>
+<table>
+
+
+    <h3 class="mb-5">{{mensaje}}</h3>
+
+    <form action="{% url 'editarperfil' %}" method="POST"> {% csrf_token %}
+    
+    
+        <table>
+            {{form.media}}
+            {{form.as_table}}
+        
+        </table>
+    
+
+
+        
+        <button class="btn btn-success">Editar perfil</a>
+    
+    </form>
+    
+    {% endblock %}
