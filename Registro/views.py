@@ -26,7 +26,8 @@ def sobremi(request):
 
 #registro y login
 
-def registro(request):
+
+def registro(request):#esta es la que va
     if request.method=="POST":
         form=registrousuarioform(request.POST)
         if form.is_valid():
@@ -157,6 +158,55 @@ def paginadetalle(request, pk):
 	return render(request, 'pagina_detalle.html', context)
 
 
+
+
+"""def profile(request, pk):     #ESTE ES UN INVENTO
+    user=User.objects.get(id=pk)
+    if Profile is None:
+        if request.method=="POST":
+            form=ProfileCreation(request.POST)
+            if form.is_valid():
+                profile=Profile(user=request.user)
+                profile.save()
+
+
+    profile=Profile.objects.filter(user=user.id).get()
+    lista=Avatar.objects.filter(user=user.id)
+    if len(lista)!=0:
+        avatar=lista[0].imagen.url
+    else:
+        avatar="/media/avatars/defaultavatar.jpg"        
+    
+    return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})"""
+
+
+
+
+#CREAR UN BOTON DE CREAR PERFIL Y SI PERFIL IS NOT NONE NO MUESTRE EL BOTON
+
+def crearprofile(request):
+    user=request.user
+    if request.method=="POST":
+        form= Profileform(request.POST)
+        if form.is_valid():
+            informacion= form.cleaned_data
+            nombre= informacion["nombre"]
+            descripcion= informacion["descripcion"]
+            email= informacion["email"]
+            web_site= informacion["web_site"]
+            profile= Profile(user=user, nombre=nombre, descripcion=descripcion, email=email, web_site=web_site)
+            profile.save()
+            return render(request, "inicio.html", {"mensaje": "Profile creado correctamente"})
+        else:
+            return render(request, "crear_perfil.html", {"mensaje": "Informacion no Valida", "avatar": obteneravatar(request)})
+    else:
+        form= Profileform()
+        return render(request, "crear_perfil.html", {"form": form, "avatar": obteneravatar(request)})
+
+
+
+
+
 def profile(request, pk):     
     user=User.objects.get(id=pk)
     profile=Profile.objects.filter(user=user.id).get()
@@ -167,6 +217,19 @@ def profile(request, pk):
         avatar="/media/avatars/defaultavatar.jpg"        
     
     return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})
+
+
+
+"""def profile(request, pk):     #ESTA ES LA QUE VA
+    user=User.objects.get(id=pk)
+    profile=Profile.objects.filter(user=user.id).get()
+    lista=Avatar.objects.filter(user=user.id)
+    if len(lista)!=0:
+        avatar=lista[0].imagen.url
+    else:
+        avatar="/media/avatars/defaultavatar.jpg"        
+    
+    return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})"""
 
 
 

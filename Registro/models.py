@@ -6,9 +6,9 @@ from ckeditor.fields import RichTextField
 
 class Profile(models.Model):
     user=models.ForeignKey(User, null=True, on_delete=models.CASCADE) 
-    nombre= models.CharField(max_length=50)
+    nombre= models.CharField(max_length=50, blank=True, null=True)
     descripcion=RichTextField(blank=True, null=True)
-    email=models.EmailField()
+    email=models.EmailField(blank=True, null=True)
     web_site=models.URLField(max_length=100, blank=True, null=True)
 
 
