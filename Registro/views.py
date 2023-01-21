@@ -2,10 +2,11 @@ from django.shortcuts import render
 from .models import *
 from Blog.models import *
 from Registro.forms import *
-from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm, UserChangeForm
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView
 from django.views import generic
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -95,11 +96,10 @@ def editarperfil(request):
 
 
 
-
+#EDICION USUARIO
 @login_required
 def editarcuenta(request): 
     usuario=request.user
-
     if request.method=="POST":
         form=UserEditform(request.POST)
         if form.is_valid():
@@ -123,24 +123,45 @@ def editarcuenta(request):
 
 
 
-"""def editarperfil(request, id):
-    pagina=Pagina.objects.get(id=id) 
+#EDICION PROFILE
+
+
+
+
+
+
+@login_required  
+def editarperfil(request): #esta queda en hold hasta probar una vista basa en clase
+    usu=request.user
+    profile=Profile.objects.filter(user=usu.id).get()
     if request.method=="POST":
-        formulario=EditarPagform(request.POST, request.FILES)
-        if formulario.is_valid():
-            informacion=formulario.cleaned_data
-            pagina.titulo=informacion["titulo"]
-            pagina.subtitulo=informacion["subtitulo"]
-            pagina.imagen=informacion["imagen"]
-            pagina.cuerpo=informacion["cuerpo"]
+        form=ProfileEditform(request.POST)
+        if form.is_valid():
+            informacion=form.cleaned_data
+            profile.nombre=informacion["nombre"]
+            profile.email=informacion["email"]
+            profile.web_site=informacion["web_site"]
+            profile.descripcion=informacion["descripcion"]
+            profile.save()
             
-            pagina.save()
-            pass
-            return render(request, "pagina_detalle.html", {"pagina":pagina})
+            return render(request, "inicio.html", {"mensaje":f"Usuario {usu.username} editado correctamente"})
         
     else:
-        formulario=EditarPagform(initial={"titulo":pagina.titulo, "subtitulo":pagina.subtitulo, "cuerpo":pagina.cuerpo})
-        return render(request, "pagina_update.html", {"formulario":formulario, "pagina":pagina})"""
+        form=ProfileEditform(initial={"nombre":profile.nombre, "email":profile.email, "web_site":profile.web_site, "descripcion":profile.descripcion})
+        return render(request, "editar_perfil.html", {"form":form, "profile":profile})
+
+
+def profile(request, pk):     #EN ESTA VIEW ESTOY MOSTRANDO EL PROFILE
+    user=User.objects.get(id=pk)
+    profile=Profile.objects.filter(user=user.id).get() #estoy pidiendo todos los objetos de profile de este user
+    lista=Avatar.objects.filter(user=user.id)
+    if len(lista)!=0:
+        avatar=lista[0].imagen.url
+    else:
+        avatar="/media/avatars/defaultavatar.jpg"        
+    
+    return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})
+
 
 
 
@@ -183,7 +204,7 @@ def paginadetalle(request, pk):
 	return render(request, 'pagina_detalle.html', context)
 
 
-def profile(request, pk):   
+def profile(request, pk):     #EN ESTA VIEW ESTOY MOSTRANDO EL PROFILE
     user=User.objects.get(id=pk)
     profile=Profile.objects.filter(user=user.id).get() #estoy pidiendo todos los objetos de profile de este user
     lista=Avatar.objects.filter(user=user.id)

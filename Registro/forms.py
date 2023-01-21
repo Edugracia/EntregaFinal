@@ -39,7 +39,7 @@ class Avatarform(forms.Form):
 
 
 
-class ProfileEditform(UserCreationForm): 
+class ProfileEditform(forms.Form): 
     nombre=forms.CharField(label="Nombre")
     email= forms.EmailField(label="Email")
     web_site=forms.CharField(max_length=100)
