@@ -54,7 +54,7 @@ def login_request(request):
                 
                     
             else:
-                return render(request, "inicio.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
+                return render(request, "ingresar.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
         else:
             return render(request, "ingresar.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
     else:
@@ -67,7 +67,7 @@ def login_request(request):
 
 #PERFILES
 
-@login_required
+"""@login_required  #esta es la que va y no se toca
 def editarperfil(request): 
     usuario=request.user
 
@@ -85,13 +85,64 @@ def editarperfil(request):
             usuario.set_password(str(usuario.password1))
             usuario.save()
             
-            return render(request, "profile_page.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)}) 
+            return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "avatar": obteneravatar(request)}) #SACO PROFILE PAGE PORQUE LUEGO DE CREARLO OLO DEVUELVE PERO SIN DATOS
         else:
             return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
     
     else:
         form=UserEditform(instance=usuario)
-        return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
+        return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})"""
+
+
+
+
+@login_required
+def editarcuenta(request): 
+    usuario=request.user
+
+    if request.method=="POST":
+        form=UserEditform(request.POST)
+        if form.is_valid():
+            informacion=form.cleaned_data
+            usuario.first_name=informacion["first_name"]
+            usuario.last_name=informacion["last_name"]
+            usuario.email=informacion["email"]
+            usuario.password1=informacion["password1"]
+            usuario.password2=informacion["password2"]
+            usuario.set_password(str(usuario.password1))
+            usuario.save()
+            pass
+            return render(request, "cuenta.html", {"mensaje":f"Usuario {usuario.username} editado correctamente"})            
+        else:
+            return render(request, "editar_cuenta.html", {"form":form, "nombreusuario":usuario.username})
+    
+    else:
+        form=UserEditform(initial={"first_name":usuario.first_name, "last_name":usuario.last_name, "email":usuario.email})
+        return render(request, "editar_cuenta.html", {"form":form, "usuario":usuario})
+
+
+
+
+"""def editarperfil(request, id):
+    pagina=Pagina.objects.get(id=id) 
+    if request.method=="POST":
+        formulario=EditarPagform(request.POST, request.FILES)
+        if formulario.is_valid():
+            informacion=formulario.cleaned_data
+            pagina.titulo=informacion["titulo"]
+            pagina.subtitulo=informacion["subtitulo"]
+            pagina.imagen=informacion["imagen"]
+            pagina.cuerpo=informacion["cuerpo"]
+            
+            pagina.save()
+            pass
+            return render(request, "pagina_detalle.html", {"pagina":pagina})
+        
+    else:
+        formulario=EditarPagform(initial={"titulo":pagina.titulo, "subtitulo":pagina.subtitulo, "cuerpo":pagina.cuerpo})
+        return render(request, "pagina_update.html", {"formulario":formulario, "pagina":pagina})"""
+
+
 
 
 

@@ -23,30 +23,14 @@ class UserEditform(UserCreationForm): #PROFILE EDIT FORM?????? la profile que tr
     email= forms.EmailField(label="Email")
     password1= forms.CharField(label="Contraseña", widget=forms.PasswordInput)
     password2= forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput)
-    web_site=forms.CharField(max_length=100)
-    descripcion = forms.CharField(widget=CKEditorWidget())
+
 
 
     class Meta:
         model=User
-        fields=["first_name", "last_name", "email", "password1", "password2", "web_site", "descripcion"]
+        fields=["first_name", "last_name", "email", "password1", "password2"]
         help_texts = {k:"" for k in fields}
 
-
-"""class UserEditform(UserCreationForm): #PROFILE EDIT FORM?????? la profile que trae de la page list es la data del profile pero de la que se carga en la form
-    first_name=forms.CharField(label="Nombre")
-    last_name=forms.CharField(label="Apellido")
-    email= forms.EmailField(label="Email")
-    password1= forms.CharField(label="Contraseña", widget=forms.PasswordInput)
-    password2= forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput)
-    web_site=forms.URLField(max_length=100)
-    descripcion = forms.CharField(widget=CKEditorWidget())
-
-
-    class Meta:
-        model=User
-        fields=["first_name", "last_name", "email", "password1", "password2", "web_site", "descripcion"]
-        help_texts = {k:"" for k in fields}"""
 
 
 
@@ -54,38 +38,19 @@ class Avatarform(forms.Form):
     imagen=forms.ImageField(label="Imagen")
 
 
+
+class ProfileEditform(UserCreationForm): 
+    nombre=forms.CharField(label="Nombre")
+    email= forms.EmailField(label="Email")
+    web_site=forms.CharField(max_length=100)
+    descripcion = forms.CharField(widget=CKEditorWidget())
+
+
 #MENSAJES
-
-"""class Mensajeform(forms.Form):
-    #receptor=forms.CharField() #ESTE SERIA EL USERNAME
-    cuerpo=forms.CharField(label="Mensaje")
-    
-    
-
-    class Meta:
-        model=Mensaje #y si esto en vez de user es de mensaje?
-        fields=["receptor", "cuerpo"]
-        help_texts = {k:"" for k in fields}"""
-
 
 
 class MensajeForm(forms.Form):
     receptor = forms.ModelChoiceField(queryset=User.objects.all() ,label="Receptor")
     cuerpo = forms.CharField(label="Mensaje ")
-
-
-
-
-
-"""class Mensajesalidaform(forms.Form):
-    #receptor=forms.CharField(label="#") #ver de que manera 
-    cuerpo=forms.CharField(label="Tu mensaje")
-    
-    
-
-    class Meta:
-        model=User
-        fields=["receptor", "cuerpo"]
-        help_texts = {k:"" for k in fields}"""
 
 

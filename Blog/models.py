@@ -20,18 +20,4 @@ class Pagina(models.Model):
     def __str__(self):
         return self.titulo + " - " + str(self.user)
 
-    """def get_absolute_url(self):
-        return reverse("pagina_detalle", args=(str(self.id)))"""
-
-
-
-# Modelo para imagenes de paginas (posteos)
-
-"""class Imagenpagina(models.Model):   #POSTEO
-    pagina=models.ForeignKey(Pagina, on_delete=models.CASCADE)
-    imgpost=models.ImageField(upload_to="post", null=True, blank=True)
-    fecha_posteo=models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.pagina} - {self.fecha_posteo}"""
 

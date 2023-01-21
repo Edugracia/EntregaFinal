@@ -46,7 +46,7 @@ def nuevopost(request):
 
 @login_required
 def editarpagina(request, id):
-    pagina=Pagina.objects.get(id=id) #ver si esto va por get o post
+    pagina=Pagina.objects.get(id=id) 
     if request.method=="POST":
         formulario=EditarPagform(request.POST, request.FILES)
         if formulario.is_valid():

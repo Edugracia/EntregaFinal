@@ -1,0 +1,27 @@
+{% extends "padre.html" %}
+
+
+{% block titulo %} 
+<title>Cuenta: {{profile.user}}</title>
+{% endblock %}
+
+{% block content %}
+
+<h3>{{ mensaje }}</h3>
+
+<br/>
+
+<br/>
+<br/>
+
+<small>
+
+    <p>Nombre: {{user.first_name}}</p>
+    <p>Apellido: {{user.last_name}}</p>
+    <p>Email: {{user.email}}</p>
+
+
+</small>
+
+
+{% endblock %}

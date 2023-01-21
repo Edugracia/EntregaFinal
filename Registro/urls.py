@@ -11,7 +11,7 @@ path("login/", login_request, name="login"),
 path("logout/", LogoutView.as_view(), name="logout"),
 
 path('sobremi/', sobremi, name="sobremi"),
-path("editarperfil/", editarperfil, name="editarperfil"),
+path("editarcuenta/", editarcuenta, name="editarcuenta"),
 path('profile/<pk>', views.profile, name="profile"),
 path("agregaravatar/", agregaravatar, name="agregaravatar"),
 
