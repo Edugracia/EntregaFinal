@@ -1,10 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import Avatar
 
-admin.site.register(Profile)
 admin.site.register(Avatar)
-#admin.site.register(Mensajesalida)
-#admin.site.register(Mensajeentrada)
-admin.site.register(Mensaje)
-
 
