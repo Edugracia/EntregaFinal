@@ -23,12 +23,13 @@
             <div class="navbar-nav">
 
                 <a class="nav-link" href="{% url 'leerpaginas' %}">Blogs</a>
-                <a class="nav-link" href="http://127.0.0.1:8000/registro/profile/1">About me</a>
+                
 
                 {% if user.is_authenticated %}
 
 
                 <a class="nav-link" href="{% url 'nuevopost' %}">Publicar</a>
+                <a class="nav-link" href="{% url 'sobremi' %}">AboutMe</a>
 
                 <a class="nav-link" href="{% url 'enviarmensaje' %}">Enviar mensaje</a>
                 <a class="nav-link" href="{% url 'buscarmensaje' %}">Mensajes recibidos</a>

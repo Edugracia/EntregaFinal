@@ -16,6 +16,12 @@ from django.views.defaults import page_not_found
 def inicio(request):
         return render (request, "inicio.html")
 
+def sobremi(request):
+    
+    return render (request, "aboutme.html", {"avatar": obteneravatar(request)})
+
+
+
 
 #registro y loguin
 
