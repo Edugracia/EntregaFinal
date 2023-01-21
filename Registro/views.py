@@ -111,8 +111,8 @@ def editarcuenta(request):
             usuario.password2=informacion["password2"]
             usuario.set_password(str(usuario.password1))
             usuario.save()
-            pass
-            return render(request, "cuenta.html", {"mensaje":f"Usuario {usuario.username} editado correctamente"})            
+            
+            return render(request, "ingresar.html", {"mensaje":f"Usuario {usuario.username} editado correctamente"})            
         else:
             return render(request, "editar_cuenta.html", {"form":form, "nombreusuario":usuario.username})
     
