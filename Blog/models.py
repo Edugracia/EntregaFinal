@@ -15,7 +15,7 @@ class Pagina(models.Model):
     imagen= models.ImageField(null=True, blank=True, upload_to="post")
     cuerpo=RichTextField(null=True, blank=True)
     creado=models.DateField(auto_now_add=True)
-    editado=models.DateField(auto_now_add=True)
+    editado=models.DateField(auto_now=True)
 
     def __str__(self):
         return self.titulo + " - " + str(self.user)
