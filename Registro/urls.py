@@ -12,9 +12,14 @@ path("logout/", LogoutView.as_view(), name="logout"),
 
 path('sobremi/', sobremi, name="sobremi"),
 path("editarcuenta/", editarcuenta, name="editarcuenta"),
-path("crearprofile/", crearprofile, name="crearprofile"),
+path("botonperfil/", botonperfil, name="botonperfil"),
 path("editarperfil/", editarperfil, name="editarperfil"),
+
+
+
 path('profile/<pk>', views.profile, name="profile"),
+
+#path('profiledos/<pk>', views.profiledos, name="profiledos"),
 path("agregaravatar/", agregaravatar, name="agregaravatar"),
 
 
