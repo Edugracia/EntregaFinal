@@ -205,8 +205,6 @@ def crearprofile(request):
 
 
 
-
-
 def profile(request, pk):     
     user=User.objects.get(id=pk)
     profile=Profile.objects.filter(user=user.id).get()
