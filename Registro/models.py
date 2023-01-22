@@ -4,7 +4,7 @@ from ckeditor.fields import RichTextField
 
 
 
-class Profile(models.Model):
+"""class Profile(models.Model):
     user=models.ForeignKey(User, null=True, on_delete=models.CASCADE) 
     nombre= models.CharField(max_length=50, blank=True, null=True)
     descripcion=RichTextField(blank=True, null=True)
@@ -13,7 +13,7 @@ class Profile(models.Model):
 
 
     def __str__(self):
-        return f"{self.user} - {self.nombre} - {self.pk}"
+        return f"{self.user} - {self.nombre} - {self.pk}"""
 
 
 class Avatar(models.Model):

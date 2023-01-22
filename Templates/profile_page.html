@@ -16,16 +16,16 @@
 
 <small>
 
-    <p>Nombre: {{profile.nombre}}</p>
-    <p>Descripcion: {{profile.descripcion|safe}}</p>
-    <p>Email: {{profile.email}}</p>
-    <p>Sitio web: {{profile.web_site}}</p>
+    <p>Nombre: {{user.first_name}}</p>
+    <p>Descripcion: {{user.descripcion|safe}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>Sitio web: {{user.web_site}}</p>
 
 </small>
 
 {% if user.is_authenticated %}
 <a class="btn btn-success" href="{% url 'editarperfil' %}">Editar perfil</a>
-<a class="btn btn-dark" href="{% url 'editarcuenta'%}">Editar cuenta</a>
+
 {% endif %}
 
 <a class="btn btn-secondary" href="{% url 'leerpaginas' %}">Volver</a>

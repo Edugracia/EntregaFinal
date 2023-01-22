@@ -23,12 +23,14 @@ class UserEditform(UserCreationForm):
     email= forms.EmailField(label="Email")
     password1= forms.CharField(label="Contraseña", widget=forms.PasswordInput)
     password2= forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput)
+    web_site=forms.CharField(max_length=100)
+    descripcion = forms.CharField(widget=CKEditorWidget())
 
 
 
     class Meta:
         model=User
-        fields=["first_name", "last_name", "email", "password1", "password2"]
+        fields=["first_name", "last_name", "email", "password1", "password2", "web_site", "descripcion"]
         help_texts = {k:"" for k in fields}
 
 
