@@ -2,15 +2,10 @@ from django.shortcuts import render
 from .models import *
 from Blog.models import *
 from Registro.forms import *
-from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm, UserChangeForm
-from django.views.generic.detail import DetailView
-from django.views.generic import ListView
-from django.views import generic
-from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import  AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from django.views.defaults import page_not_found
+
 
 
 
@@ -71,7 +66,7 @@ def login_request(request):
 
 #EDICION USUARIO
 @login_required
-def editarcuenta(request): 
+def editarperfil(request): 
     usuario=request.user
     if request.method=="POST":
         form=UserEditform(request.POST)
@@ -82,41 +77,18 @@ def editarcuenta(request):
             usuario.email=informacion["email"]
             usuario.password1=informacion["password1"]
             usuario.password2=informacion["password2"]
+
             usuario.set_password(str(usuario.password1))
             usuario.save()
             
             return render(request, "ingresar.html", {"mensaje":f"{usuario.username} editado correctamente", "form":AuthenticationForm(request, data=request.POST)})       
         else:
-            return render(request, "editar_cuenta.html", {"form":form, "nombreusuario":usuario.username})
+            return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
     
     else:
         form=UserEditform(initial={"first_name":usuario.first_name, "last_name":usuario.last_name, "email":usuario.email})
-        return render(request, "editar_cuenta.html", {"form":form, "usuario":usuario})
+        return render(request, "editar_perfil.html", {"form":form, "usuario":usuario, "avatar": obteneravatar(request)})
 
-
-
-
-#EDICION PROFILE
-
-@login_required  
-def editarperfil(request): 
-    usu=request.user
-    profile=Profile.objects.filter(user=usu.id).get()
-    if request.method=="POST":
-        form=ProfileEditform(request.POST)
-        if form.is_valid():
-            informacion=form.cleaned_data
-            profile.nombre=informacion["nombre"]
-            profile.email=informacion["email"]
-            profile.web_site=informacion["web_site"]
-            profile.descripcion=informacion["descripcion"]
-            profile.save()
-            
-            return render(request, "profile_page.html", {"mensaje":f"{usu.username} editado correctamente", "profile":profile, "avatar": obteneravatar(request)})
-        
-    else:
-        form=ProfileEditform(initial={"nombre":profile.nombre, "email":profile.email, "web_site":profile.web_site, "descripcion":profile.descripcion})
-        return render(request, "editar_perfil.html", {"form":form, "profile":profile, "avatar": obteneravatar(request)})
 
 
 
@@ -160,6 +132,7 @@ def paginadetalle(request, pk):
 
 
 
+<<<<<<< HEAD
 """def profile(request, pk):     #ESTE ES UN INVENTO
     user=User.objects.get(id=pk)
     if Profile is None:
@@ -277,6 +250,8 @@ def botonperfil(request):
 
 
 
+=======
+>>>>>>> feature_creoqueanda
 @login_required
 def agregaravatar(request):
     if request.method=="POST":
@@ -297,6 +272,7 @@ def agregaravatar(request):
         return render(request, "agregaravatar.html", {"form":form, "usuario": request.user})
 
 
+<<<<<<< HEAD
 
 
 
@@ -313,6 +289,8 @@ def profile(request, pk):     #ESTA ES LA QUE VA
 
 
 
+=======
+>>>>>>> feature_creoqueanda
 #MENSAJERIA
 
 @login_required
