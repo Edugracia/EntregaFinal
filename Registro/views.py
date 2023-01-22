@@ -184,7 +184,7 @@ def paginadetalle(request, pk):
 
 #CREAR UN BOTON DE CREAR PERFIL Y SI PERFIL IS NOT NONE NO MUESTRE EL BOTON
 
-def crearprofile(request):  #ESTO ANDA
+"""def crearprofile(request):  #ESTO ANDA
     user=request.user
     if request.method=="POST":
         form= Profileform(request.POST)
@@ -201,13 +201,33 @@ def crearprofile(request):  #ESTO ANDA
             return render(request, "crear_perfil.html", {"mensaje": "Informacion no Valida", "avatar": obteneravatar(request)})
     else:
         form= Profileform()
+        return render(request, "crear_perfil.html", {"form": form, "avatar": obteneravatar(request)})"""
+
+
+
+
+
+def crearprofile(request):  
+    user=request.user
+    if request.method=="POST":
+        form= Profileform(request.POST)
+        if form.is_valid():
+            informacion= form.cleaned_data
+            nombre= informacion["nombre"]
+            descripcion= informacion["descripcion"]
+            email= informacion["email"]
+            web_site= informacion["web_site"]
+            profile= Profile(user=user, nombre=nombre, descripcion=descripcion, email=email, web_site=web_site)
+            profileviejo= Profile.objects.filter(user=request.user)
+            if len(profileviejo)>0:
+                profileviejo[0].delete()
+            profile.save()
+            return render(request, "inicio.html", {"mensaje": "Profile creado correctamente"})
+        else:
+            return render(request, "crear_perfil.html", {"mensaje": "Informacion no Valida", "avatar": obteneravatar(request)})
+    else:
+        form= Profileform()
         return render(request, "crear_perfil.html", {"form": form, "avatar": obteneravatar(request)})
-
-
-
-
-
-
 
 
 
