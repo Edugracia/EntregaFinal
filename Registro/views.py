@@ -184,7 +184,7 @@ def paginadetalle(request, pk):
 
 #CREAR UN BOTON DE CREAR PERFIL Y SI PERFIL IS NOT NONE NO MUESTRE EL BOTON
 
-def crearprofile(request):
+def crearprofile(request):  #ESTO ANDA
     user=request.user
     if request.method=="POST":
         form= Profileform(request.POST)
@@ -202,6 +202,41 @@ def crearprofile(request):
     else:
         form= Profileform()
         return render(request, "crear_perfil.html", {"form": form, "avatar": obteneravatar(request)})
+
+
+
+
+
+
+
+
+
+
+
+@login_required
+def agregaravatar(request):
+    if request.method=="POST":
+        form=Avatarform(request.POST, request.FILES)
+        if form.is_valid():
+            avatar=Avatar(user=request.user, imagen=request.FILES["imagen"])
+            avatarviejo=Avatar.objects.filter(user=request.user)
+            if len(avatarviejo)>0:
+                #avatarviejo[0].imagen.delete()
+                avatarviejo[0].delete()
+            avatar.save()
+            return render(request, "inicio.html", {"mensaje":f"Avatar agregado correctamente"})
+        else:
+            return render(request, "agregaravatar.html", {"form": form, "usuario": request.user, "mensaje":"Error al agregar avatar"})
+
+    else:
+        form=Avatarform()
+        return render(request, "agregaravatar.html", {"form":form, "usuario": request.user})
+
+
+
+
+
+
 
 
 

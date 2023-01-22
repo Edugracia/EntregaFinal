@@ -36,12 +36,13 @@
                 <a class="nav-link" href="{% url 'enviarmensaje' %}">Enviar mensaje</a>
                 <a class="nav-link" href="{% url 'buscarmensaje' %}">Mensajes recibidos</a>
 
-                  {% if profile.user.id is not defined %}     <!-- aparece perfil -->    <!-- si no existe devuelve none -->  <!-- existe devuelve not none -->
-                  <a class="nav-link" href="{% url 'profile' user.id %}">Perfil</a>
-                  {% else %}
-                  <!-- aparece crear -->
-                  <a class="nav-link" href="{% url 'crearprofile' %}">Crear perfil</a><!-- si tiene perfil no tiene que aparecer crear perfil y si tiene no -->
-                  {% endif %}
+                  
+
+
+                      <a class="nav-link" href="{% url 'profile' user.id %}">Perfil</a>
+                                    
+                      <a class="nav-link" href="{% url 'crearprofile' %}">Crear perfil</a><!-- si tiene perfil no tiene que aparecer crear perfil y si tiene no -->
+                  
                     
                   
                   
