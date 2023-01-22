@@ -42,21 +42,6 @@ class Avatarform(forms.Form):
 
 
 
-class Profileform(forms.Form): 
-    nombre=forms.CharField(label="Nombre")
-    email= forms.EmailField(label="Email")
-    web_site=forms.CharField(max_length=100)
-    descripcion = forms.CharField(widget=CKEditorWidget())
-
-
-class ProfileEditform(forms.Form): 
-    nombre=forms.CharField(label="Nombre")
-    email= forms.EmailField(label="Email")
-    web_site=forms.CharField(max_length=100)
-    descripcion = forms.CharField(widget=CKEditorWidget())
-
-
-
 class MensajeForm(forms.Form):
     receptor = forms.ModelChoiceField(queryset=User.objects.all() ,label="Receptor")
     cuerpo = forms.CharField(label="Mensaje ")

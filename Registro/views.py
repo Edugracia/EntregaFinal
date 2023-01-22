@@ -2,15 +2,10 @@ from django.shortcuts import render
 from .models import *
 from Blog.models import *
 from Registro.forms import *
-from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm, UserChangeForm
-from django.views.generic.detail import DetailView
-from django.views.generic import ListView
-from django.views import generic
-from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import  AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from django.views.defaults import page_not_found
+
 
 
 
@@ -97,30 +92,6 @@ def editarperfil(request):
 
 
 
-#EDICION PROFILE
-
-"""@login_required  
-def editarperfil(request): 
-    usu=request.user
-    profile=Profile.objects.filter(user=usu.id).get()
-    if request.method=="POST":
-        form=ProfileEditform(request.POST)
-        if form.is_valid():
-            informacion=form.cleaned_data
-            profile.nombre=informacion["nombre"]
-            profile.email=informacion["email"]
-            profile.web_site=informacion["web_site"]
-            profile.descripcion=informacion["descripcion"]
-            profile.save()
-            
-            return render(request, "profile_page.html", {"mensaje":f"{usu.username} editado correctamente", "profile":profile, "avatar": obteneravatar(request)})
-        
-    else:
-        form=ProfileEditform(initial={"nombre":profile.nombre, "email":profile.email, "web_site":profile.web_site, "descripcion":profile.descripcion})
-        return render(request, "editar_perfil.html", {"form":form, "profile":profile, "avatar": obteneravatar(request)})"""
-
-
-
 
 @login_required
 def obteneravatar(request):
@@ -161,59 +132,6 @@ def paginadetalle(request, pk):
 
 
 
-"""def profile(request, pk):     #ESTE ES UN INVENTO
-    user=User.objects.get(id=pk)
-    if Profile is None:
-        if request.method=="POST":
-            form=ProfileCreation(request.POST)
-            if form.is_valid():
-                profile=Profile(user=request.user)
-                profile.save()
-
-
-    profile=Profile.objects.filter(user=user.id).get()
-    lista=Avatar.objects.filter(user=user.id)
-    if len(lista)!=0:
-        avatar=lista[0].imagen.url
-    else:
-        avatar="/media/avatars/defaultavatar.jpg"        
-    
-    return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})"""
-
-
-
-
-#CREAR UN BOTON DE CREAR PERFIL Y SI PERFIL IS NOT NONE NO MUESTRE EL BOTON
-
-"""def crearprofile(request):  #ESTO ANDA
-    user=request.user
-    if request.method=="POST":
-        form= Profileform(request.POST)
-        if form.is_valid():
-            informacion= form.cleaned_data
-            nombre= informacion["nombre"]
-            descripcion= informacion["descripcion"]
-            email= informacion["email"]
-            web_site= informacion["web_site"]
-            profile= Profile(user=user, nombre=nombre, descripcion=descripcion, email=email, web_site=web_site)
-            profile.save()
-            return render(request, "inicio.html", {"mensaje": "Profile creado correctamente"})
-        else:
-            return render(request, "crear_perfil.html", {"mensaje": "Informacion no Valida", "avatar": obteneravatar(request)})
-    else:
-        form= Profileform()
-        return render(request, "crear_perfil.html", {"form": form, "avatar": obteneravatar(request)})"""
-
-
-
-
-
-
-
-
-
-
-
 @login_required
 def agregaravatar(request):
     if request.method=="POST":
@@ -232,39 +150,6 @@ def agregaravatar(request):
     else:
         form=Avatarform()
         return render(request, "agregaravatar.html", {"form":form, "usuario": request.user})
-
-
-
-
-
-
-
-
-
-"""def profile(request, pk):     
-    user=User.objects.get(id=pk)
-    profile=Profile.objects.filter(user=user.id).get()
-    lista=Avatar.objects.filter(user=user.id)
-    if len(lista)!=0:
-        avatar=lista[0].imagen.url
-    else:
-        avatar="/media/avatars/defaultavatar.jpg"        
-    
-    return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})"""
-
-
-
-"""def profile(request, pk):     #ESTA ES LA QUE VA
-    user=User.objects.get(id=pk)
-    profile=Profile.objects.filter(user=user.id).get()
-    lista=Avatar.objects.filter(user=user.id)
-    if len(lista)!=0:
-        avatar=lista[0].imagen.url
-    else:
-        avatar="/media/avatars/defaultavatar.jpg"        
-    
-    return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})"""
-
 
 
 #MENSAJERIA
