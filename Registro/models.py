@@ -3,6 +3,19 @@ from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
 
+class Profile(models.Model):
+    user=models.OneToOneField(User, null=True, on_delete=models.CASCADE) #de aca saque el null=True
+    nombre= models.CharField(max_length=50, blank=True, null=True)
+    descripcion=RichTextField(blank=True, null=True)
+    email=models.EmailField(blank=True, null=True)
+    web_site=models.URLField(max_length=100, blank=True, null=True)
+
+
+    def __str__(self):
+        return f"{self.user} - {self.nombre} - {self.pk}" 
+
+
+
 
 class Avatar(models.Model):
     imagen=models.ImageField(upload_to="avatars")

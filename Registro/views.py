@@ -19,10 +19,92 @@ def sobremi(request):
 
 
 
+"""def registro(request):
+    if request.method=="POST":
+        form= registrousuarioform(request.POST)
+        form_profile= ProfileEditform(request.POST)
+        if form.is_valid():
+            username= form.cleaned_data.get("username")
+            form.save()
+            user_list= User.objects.filter(username=form.cleaned_data.get("username"))
+            print(user_list[0])
+            print(user_list[0].email)
+            print(user_list[0].id)
+            return render(request, "inicio.html", {"mensaje":f"Usuario {username} creado correctamente"})
+        else:
+            return render(request, "registro.html", {"form":form, "mensaje": "Error al crear el usuario"})
+    else:
+        form= registrousuarioform()
+        return render(request, "registro.html", {"form":form})"""
+
+
+
+
 #registro y login
 
 
-def registro(request):#esta es la que va
+
+def registro(request):
+    if request.method=="POST":
+        form= registrousuarioform(request.POST)
+        if form.is_valid():
+            username= form.cleaned_data.get("username")
+            form.save()
+            user= User.objects.filter(username=form.cleaned_data.get("username")) #este es mi usuario nuevo
+            print(user)
+            print(user[0])
+            print(user[0].email)
+            print(user[0].id)
+            
+#Creo un profile al mismo tiempo que creo el user
+
+            user_id= (user[0].id)
+            nombre= ""
+            email= (user[0].email)
+            descripcion= ""
+            profile= Profile(user_id=user_id, nombre=nombre, email=email, descripcion=descripcion)
+            profile.save()
+            
+
+            return render(request, "inicio.html", {"mensaje":f"Usuario {username} creado correctamente"})
+        else:
+            return render(request, "registro.html", {"form":form, "mensaje": "Error al crear el usuario"})
+    else:
+        form= registrousuarioform()
+        return render(request, "registro.html", {"form":form})
+
+
+
+
+@login_required  
+def editarprofile(request): 
+    usu=request.user
+    profile=Profile.objects.filter(user=usu.id).get()
+    if request.method=="POST":
+        form=ProfileEditform(request.POST)
+        if form.is_valid():
+            informacion=form.cleaned_data
+            profile.nombre=informacion["nombre"]
+            profile.email=informacion["email"]
+            profile.web_site=informacion["web_site"]
+            profile.descripcion=informacion["descripcion"]
+            profile.save()
+            
+            return render(request, "profile_page.html", {"mensaje":f"{usu.username} editado correctamente", "profile":profile, "avatar": obteneravatar(request)})
+        
+    else:
+        form=ProfileEditform(initial={"nombre":profile.nombre, "email":profile.email, "web_site":profile.web_site, "descripcion":profile.descripcion})
+        return render(request, "editar_perfil.html", {"form":form, "profile":profile, "avatar": obteneravatar(request)})
+
+
+
+
+
+
+
+
+
+"""def registro(request):#esta es la que va
     if request.method=="POST":
         form=registrousuarioform(request.POST)
         if form.is_valid():
@@ -33,7 +115,7 @@ def registro(request):#esta es la que va
             return render(request, "registro.html", {"form":form, "mensaje": "Error al crear el usuario"})
     else:
         form= registrousuarioform()
-        return render(request, "registro.html", {"form":form})
+        return render(request, "registro.html", {"form":form})"""
 
 
 
@@ -65,8 +147,8 @@ def login_request(request):
 #PERFILES
 
 #EDICION USUARIO
-@login_required
-def editarperfil(request): 
+"""@login_required
+def editarperfil(request): #esta es la que va
     usuario=request.user
     if request.method=="POST":
         form=UserEditform(request.POST)
@@ -81,13 +163,13 @@ def editarperfil(request):
             usuario.set_password(str(usuario.password1))
             usuario.save()
             
-            return render(request, "ingresar.html", {"mensaje":f"{usuario.username} editado correctamente", "form":AuthenticationForm(request, data=request.POST)})       
+            return render(request, "ingresar.html", {"mensaje":f"{usuario.username} editado correctamente", "form":AuthenticationForm(request, data=request.POST)})   #revisar esto    
         else:
             return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
     
     else:
         form=UserEditform(initial={"first_name":usuario.first_name, "last_name":usuario.last_name, "email":usuario.email})
-        return render(request, "editar_perfil.html", {"form":form, "usuario":usuario, "avatar": obteneravatar(request)})
+        return render(request, "editar_perfil.html", {"form":form, "usuario":usuario, "avatar": obteneravatar(request)})"""
 
 
 

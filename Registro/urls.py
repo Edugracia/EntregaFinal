@@ -12,7 +12,8 @@ path("logout/", LogoutView.as_view(), name="logout"),
 
 path('sobremi/', sobremi, name="sobremi"),
 
-path("editarperfil/", editarperfil, name="editarperfil"),
+#path("editarperfil/", editarperfil, name="editarperfil"), #esta es la que va
+path("editarprofile/", editarprofile, name="editarprofile"),
 path("agregaravatar/", agregaravatar, name="agregaravatar"),
 
 
