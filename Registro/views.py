@@ -17,32 +17,7 @@ def sobremi(request):
     return render (request, "aboutme.html", {"avatar": obteneravatar(request)})
 
 
-
-
-"""def registro(request):
-    if request.method=="POST":
-        form= registrousuarioform(request.POST)
-        form_profile= ProfileEditform(request.POST)
-        if form.is_valid():
-            username= form.cleaned_data.get("username")
-            form.save()
-            user_list= User.objects.filter(username=form.cleaned_data.get("username"))
-            print(user_list[0])
-            print(user_list[0].email)
-            print(user_list[0].id)
-            return render(request, "inicio.html", {"mensaje":f"Usuario {username} creado correctamente"})
-        else:
-            return render(request, "registro.html", {"form":form, "mensaje": "Error al crear el usuario"})
-    else:
-        form= registrousuarioform()
-        return render(request, "registro.html", {"form":form})"""
-
-
-
-
-#registro y login
-
-
+#REGISTRO Y LOGIN
 
 def registro(request):
     if request.method=="POST":
@@ -73,7 +48,26 @@ def registro(request):
         form= registrousuarioform()
         return render(request, "registro.html", {"form":form})
 
-
+def login_request(request):
+    if request.method=="POST":
+        form=AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            informacion=form.cleaned_data
+            usu=informacion["username"]
+            clave=informacion["password"]
+            usuario=authenticate(username=usu, password=clave)
+            if usuario is not None: #(SI ME DEVOLVIO ALGO, si el usuario esta en la base)si no existe devuelve none
+                login(request, usuario)  #LOGUEa mi usuario
+                return render(request, "inicio.html", {"mensaje":f"Usuario {usu} logueado correctamente"})
+                
+                    
+            else:
+                return render(request, "ingresar.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
+        else:
+            return render(request, "ingresar.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
+    else:
+        form=AuthenticationForm()
+        return render(request, "ingresar.html", {"form":form})
 
 
 @login_required  
@@ -97,59 +91,10 @@ def editarprofile(request):
         return render(request, "editar_perfil.html", {"form":form, "profile":profile, "avatar": obteneravatar(request)})
 
 
-
-
-
-
-
-
-
-"""def registro(request):#esta es la que va
-    if request.method=="POST":
-        form=registrousuarioform(request.POST)
-        if form.is_valid():
-            username= form.cleaned_data.get("username")
-            form.save()
-            return render(request, "inicio.html", {"mensaje":f"Usuario {username} creado correctamente"})
-        else:
-            return render(request, "registro.html", {"form":form, "mensaje": "Error al crear el usuario"})
-    else:
-        form= registrousuarioform()
-        return render(request, "registro.html", {"form":form})"""
-
-
-
-def login_request(request):
-    if request.method=="POST":
-        form=AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            informacion=form.cleaned_data
-            usu=informacion["username"]
-            clave=informacion["password"]
-            usuario=authenticate(username=usu, password=clave)
-            if usuario is not None: #(SI ME DEVOLVIO ALGO, si el usuario esta en la base)si no existe devuelve none
-                login(request, usuario)  #LOGUEa mi usuario
-                return render(request, "inicio.html", {"mensaje":f"Usuario {usu} logueado correctamente"})
-                
-                    
-            else:
-                return render(request, "ingresar.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
-        else:
-            return render(request, "ingresar.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
-    else:
-        form=AuthenticationForm()
-        return render(request, "ingresar.html", {"form":form})
-
-
-
-
-
-#PERFILES
-
-#EDICION USUARIO
-"""@login_required
-def editarperfil(request): #esta es la que va
+@login_required
+def editarcuenta(request): 
     usuario=request.user
+
     if request.method=="POST":
         form=UserEditform(request.POST)
         if form.is_valid():
@@ -159,17 +104,18 @@ def editarperfil(request): #esta es la que va
             usuario.email=informacion["email"]
             usuario.password1=informacion["password1"]
             usuario.password2=informacion["password2"]
-
             usuario.set_password(str(usuario.password1))
             usuario.save()
             
-            return render(request, "ingresar.html", {"mensaje":f"{usuario.username} editado correctamente", "form":AuthenticationForm(request, data=request.POST)})   #revisar esto    
+            return render(request, "ingresar.html", {"mensaje":f"Usuario {usuario.username} editado correctamente"})            
         else:
-            return render(request, "editar_perfil.html", {"form":form, "nombreusuario":usuario.username, "avatar": obteneravatar(request)})
+            return render(request, "editar_cuenta.html", {"form":form, "nombreusuario":usuario.username})
     
     else:
         form=UserEditform(initial={"first_name":usuario.first_name, "last_name":usuario.last_name, "email":usuario.email})
-        return render(request, "editar_perfil.html", {"form":form, "usuario":usuario, "avatar": obteneravatar(request)})"""
+        return render(request, "editar_cuenta.html", {"form":form, "usuario":usuario})
+
+
 
 
 
@@ -195,7 +141,7 @@ def agregaravatar(request):
                 #avatarviejo[0].imagen.delete()
                 avatarviejo[0].delete()
             avatar.save()
-            return render(request, "inicio.html", {"mensaje":f"Avatar agregado correctamente"})
+            return render(request, "profile_page.html")
         else:
             return render(request, "agregaravatar.html", {"form": form, "usuario": request.user, "mensaje":"Error al agregar avatar"})
 
@@ -205,13 +151,10 @@ def agregaravatar(request):
 
 
 
-
 def paginadetalle(request, pk):
 	pagina = Pagina.objects.get(id=pk)
 	context = {'pagina':pagina}
 	return render(request, 'pagina_detalle.html', context)
-
-
 
 
 @login_required

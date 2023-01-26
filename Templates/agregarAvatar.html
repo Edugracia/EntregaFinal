@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<h1>Editar Avatar</h1>
+
 <h1 class="mb=5">Agregando Avatar: {{ user.username }}</h1>
 
 
@@ -16,15 +16,16 @@
 
 <form action="{% url 'agregaravatar' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
-
+    <br>
     <table>
 
         {{ form.as_table }}
     
     </table>
-
-    <input type="submit" value="Agregar Avatar">
-
+    <br>
+    
+    <input type="submit" value="Agregar">
+    
 </form>
 
 {{ mensaje }}

@@ -12,6 +12,7 @@ urlpatterns = [
     path('pagina/borrar/<pk>', PaginaDelete.as_view(), name="pagina_borrar"),
     path('paginadetalle/<pk>', views.paginadetalle, name="paginadetalle"),
     path('leerpaginas/', views.leerpaginas, name="leerpaginas"),
+    path('obtenerperfil/<pk>', obtenerperfil, name="obtenerperfil"),
     
 
 ]

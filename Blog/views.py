@@ -19,13 +19,13 @@ def blogs(request):
 
 
 
-#PAGINAS
+#PAGINAS (posteos)
 
 @login_required
 def nuevopost(request):
     usuario= request.user
     if request.method=="POST":
-        formulario=nuevopostform(request.POST, request.FILES)
+        formulario= nuevopostform(request.POST, request.FILES)
         if formulario.is_valid():            
             informacion= formulario.cleaned_data
             titulo= informacion["titulo"]
@@ -39,18 +39,18 @@ def nuevopost(request):
         else:
             return render(request, "pagina_form_copia.html", {"mensaje": "Informacion no Valida"})
     else:
-        formulario=nuevopostform()
+        formulario= nuevopostform()
         return render(request, "pagina_form_copia.html", {"formulario": formulario})
 
 
 
 @login_required
 def editarpagina(request, id):
-    pagina=Pagina.objects.get(id=id) 
+    pagina= Pagina.objects.get(id=id) 
     if request.method=="POST":
-        formulario=EditarPagform(request.POST, request.FILES)
+        formulario= EditarPagform(request.POST, request.FILES)
         if formulario.is_valid():
-            informacion=formulario.cleaned_data
+            informacion= formulario.cleaned_data
             pagina.titulo=informacion["titulo"]
             pagina.subtitulo=informacion["subtitulo"]
             pagina.imagen=informacion["imagen"]
@@ -61,30 +61,42 @@ def editarpagina(request, id):
             return render(request, "pagina_detalle.html", {"pagina":pagina})
         
     else:
-        formulario=EditarPagform(initial={"titulo":pagina.titulo, "subtitulo":pagina.subtitulo, "cuerpo":pagina.cuerpo})
+        formulario= EditarPagform(initial={"titulo":pagina.titulo, "subtitulo":pagina.subtitulo, "cuerpo":pagina.cuerpo})
         return render(request, "pagina_update.html", {"formulario":formulario, "pagina":pagina})
 
 
 
 class PaginaDelete(LoginRequiredMixin,DeleteView):
-    model = Pagina
-    success_url = reverse_lazy('leerpaginas')
+    model= Pagina
+    success_url= reverse_lazy('leerpaginas')
     template_name="pagina_confirm_delete.html"
 
-class PaginaList(ListView):
+"""class PaginaList(ListView):
     model=Pagina
     template_name="listapaginas.html"
-    ordering= ["-fecha_posteo"]
+    ordering= ["-fecha_posteo"]"""
 
 
 def leerpaginas(request):
-    paginas=Pagina.objects.all()
-    return render(request, "listapaginas_copia.html", {"paginas":paginas}) 
+    paginas= Pagina.objects.all()
+    return render(request, "listapaginas.html", {"paginas":paginas}) 
 
 
 
 def paginadetalle(request, pk):
-	pagina = Pagina.objects.get(id=pk)
-	context = {'pagina':pagina}
+	pagina= Pagina.objects.get(id=pk)
+	context= {'pagina':pagina}
 	return render(request, 'pagina_detalle.html', context)
+
+
+def obtenerperfil(request, pk):
+    user= User.objects.get(id=pk)
+    profile= Profile.objects.filter(user=user.id).get()
+    lista= Avatar.objects.filter(user=user.id)
+    if len(lista)!= 0:
+        avatar= lista[0].imagen.url
+    else:
+        avatar= "/media/avatars/defaultavatar.jpg"
+    return render(request, "profile_page.html", {"profile":profile, "avatar":avatar})
+
 

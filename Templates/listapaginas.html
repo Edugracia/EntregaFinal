@@ -11,15 +11,18 @@
 {% block content %}
 
 
-<h1>Posteos</h1>
+<h1>Blogs</h1>
+<br>
 
-<img src="{{ avatar }}" alt="">
+{% for pagina in paginas %}
 
-{% for pagina in object_list %}
+<h5>{{ pagina.titulo }}</h5>
 
-<h5>{{ pagina.titulo }} - {{ pagina.user }} - {{ pagina.fecha_posteo }}</h5>
 
-<a class="btn btn-secondary" href="{% url 'paginadetalle' pagina.id %}">Leer mas</a>
+
+<a href="{% url 'paginadetalle' pagina.id %}">Leer mas</a>
+
+
     {% if user.is_authenticated %}
         {% if user.id == pagina.user.id %}
             <a class="btn btn-success" href="{% url 'editarpagina' pagina.id %}">Editar</a>
@@ -40,3 +43,6 @@
 
 
 {% endblock %}
+
+
+

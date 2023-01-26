@@ -9,6 +9,7 @@
 
 <h1>Editando {{user.username}}</h1>
 
+{% if user.is_authenticated %}
 
 <img class="img-fluid rounded-circle mb-2" src="{{ avatar }}" alt="...">
 <br/>
@@ -34,5 +35,6 @@
         <button class="btn btn-success">Editar perfil</a>
     
     </form>
+    {% endif %}
     
     {% endblock %}
