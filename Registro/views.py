@@ -48,6 +48,8 @@ def registro(request):
         form= registrousuarioform()
         return render(request, "registro.html", {"form":form})
 
+
+
 def login_request(request):
     if request.method=="POST":
         form=AuthenticationForm(request, data=request.POST)
@@ -60,7 +62,6 @@ def login_request(request):
                 login(request, usuario)  #LOGUEa mi usuario
                 return render(request, "inicio.html", {"mensaje":f"Usuario {usu} logueado correctamente"})
                 
-                    
             else:
                 return render(request, "ingresar.html", {"form": form, "mensaje":"Usuario o contraseña incorrectos"})
         else:
@@ -91,6 +92,7 @@ def editarprofile(request):
         return render(request, "editar_perfil.html", {"form":form, "profile":profile, "avatar": obteneravatar(request)})
 
 
+
 @login_required
 def editarcuenta(request): 
     usuario=request.user
@@ -107,16 +109,13 @@ def editarcuenta(request):
             usuario.set_password(str(usuario.password1))
             usuario.save()
             
-            return render(request, "ingresar.html", {"mensaje":f"Usuario {usuario.username} editado correctamente"})            
+            return render(request, "ingresar.html", {"mensaje":f"Usuario {usuario.username} editado correctamente", "form":AuthenticationForm(request, data=request.POST)})
         else:
             return render(request, "editar_cuenta.html", {"form":form, "nombreusuario":usuario.username})
     
     else:
         form=UserEditform(initial={"first_name":usuario.first_name, "last_name":usuario.last_name, "email":usuario.email})
         return render(request, "editar_cuenta.html", {"form":form, "usuario":usuario})
-
-
-
 
 
 
@@ -130,7 +129,9 @@ def obteneravatar(request):
         avatar="/media/avatars/defaultavatar.jpg"
     return avatar
 
-@login_required
+
+
+"""@login_required
 def agregaravatar(request):
     if request.method=="POST":
         form=Avatarform(request.POST, request.FILES)
@@ -147,15 +148,7 @@ def agregaravatar(request):
 
     else:
         form=Avatarform()
-        return render(request, "agregaravatar.html", {"form":form, "usuario": request.user})
-
-
-
-def paginadetalle(request, pk):
-	pagina = Pagina.objects.get(id=pk)
-	context = {'pagina':pagina}
-	return render(request, 'pagina_detalle.html', context)
-
+        return render(request, "agregaravatar.html", {"form":form, "usuario": request.user})"""
 
 @login_required
 def agregaravatar(request):
@@ -175,6 +168,12 @@ def agregaravatar(request):
     else:
         form=Avatarform()
         return render(request, "agregaravatar.html", {"form":form, "usuario": request.user})
+
+def paginadetalle(request, pk):
+	pagina = Pagina.objects.get(id=pk)
+	context = {'pagina':pagina}
+	return render(request, 'pagina_detalle.html', context)
+
 
 
 #MENSAJERIA
