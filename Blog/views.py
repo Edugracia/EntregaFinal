@@ -71,10 +71,6 @@ class PaginaDelete(LoginRequiredMixin,DeleteView):
     success_url= reverse_lazy('leerpaginas')
     template_name="pagina_confirm_delete.html"
 
-"""class PaginaList(ListView):
-    model=Pagina
-    template_name="listapaginas.html"
-    ordering= ["-fecha_posteo"]"""
 
 
 def leerpaginas(request):

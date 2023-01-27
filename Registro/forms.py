@@ -2,8 +2,9 @@ from django import forms
 from django.contrib.auth.forms import  UserCreationForm
 from django.contrib.auth.models import User
 from ckeditor.widgets import CKEditorWidget
-
 from .models import *
+
+
 
 class registrousuarioform(UserCreationForm):
     email= forms.EmailField(label="Email")

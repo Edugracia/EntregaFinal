@@ -4,7 +4,7 @@ from ckeditor.fields import RichTextField
 
 
 class Profile(models.Model):
-    user=models.OneToOneField(User, null=True, on_delete=models.CASCADE) #de aca saque el null=True
+    user=models.OneToOneField(User, null=True, on_delete=models.CASCADE) 
     nombre= models.CharField(max_length=50, blank=True, null=True)
     descripcion=RichTextField(blank=True, null=True)
     email=models.EmailField(blank=True, null=True)

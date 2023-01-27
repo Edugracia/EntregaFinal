@@ -18,13 +18,6 @@ class nuevopostform(forms.Form):
 
 
 
-
-class Imagenpaginaform(forms.Form):
-    imagenpagina=forms.ImageField(label="Imagen")
-    
-
-
-
 class EditarPagform(forms.Form):
     titulo=forms.CharField(label="Titulo")
     subtitulo=forms.CharField(label="Subtitulo")
@@ -37,5 +30,8 @@ class EditarPagform(forms.Form):
         fields=["titulo", "subtitulo", "imagen", "cuerpo"]
         help_texts = {k:"" for k in fields}
 
+
+class Imagenpaginaform(forms.Form):
+    imagenpagina=forms.ImageField(label="Imagen")
 
 
