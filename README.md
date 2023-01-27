@@ -12,12 +12,14 @@ y enviarse mensajes entre ellos.
 usuario administrador: 
 
 user: admin 
-pass:coderhosue*
+pass: coderhosue*
 
 Algunos usuarios:
 
 user: AlbertBlog
-pass: user135*
+pass: user134*
 
-user: Marthas
-pass: user148*
+user: PruebaCoder
+pass: user156*
+
+
